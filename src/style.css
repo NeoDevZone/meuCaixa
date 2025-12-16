@@ -1,0 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Martel+Sans:wght@200;300;400;600;700;800;900&display=swap");
+
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Martel Sans", system-ui, sans-serif;
+  --color-primary: #4f81ef;
+  --color-secondary: #4c8cfa;
+  --color-background-light: #eaf1ff;
+  --color-border-detail: #d3e0ff;
+  --color-text-dark: #0f2a55;
+  --color-input: #038e0c;
+  --color-output: #b50508;
+  --color-fiado: #9c9c9c;
+}
