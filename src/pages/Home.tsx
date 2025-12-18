@@ -1,8 +1,12 @@
+import { useRef, useState } from "react";
 import { Base } from "../components/base";
 import { Card } from "../components/card";
 import { TransactionRow } from "../components/transactionRow";
 
 export function Home() {
+  const [date, setDate] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
+
   return (
     <Base>
       <div className="flex justify-center pt-13 flex-col items-center">
@@ -17,17 +21,72 @@ export function Home() {
               <span className="text-center">Movimento</span>
               <span className="text-center">Valor</span>
             </div>
-            <TransactionRow type="Saída" value="R$ 9,99" />
-            <TransactionRow type="Fiado" value="R$ 9,99" />
-            <TransactionRow type="Entrada" value="R$ 9,99" />
-            <TransactionRow type="Saída" value="R$ 9,99" />
-            <TransactionRow type="Fiado" value="R$ 9,99" />
-            <TransactionRow type="Entrada" value="R$ 9,99" />
+            <TransactionRow
+              descricao="Nome"
+              categoria="Venda"
+              data="Data"
+              metodo="Pix"
+              movimento="Saída"
+              valor="R$ 9,99"
+            />
+            <TransactionRow
+              descricao="Nome"
+              categoria="Venda"
+              data="Data"
+              metodo="Pix"
+              movimento="Fiado"
+              valor="R$ 9,99"
+            />
+            <TransactionRow
+              descricao="Nome"
+              categoria="Venda"
+              data="Data"
+              metodo="Pix"
+              movimento="Entrada"
+              valor="R$ 9,99"
+            />
+            <TransactionRow
+              descricao="Nome"
+              categoria="Venda"
+              data="Data"
+              metodo="Pix"
+              movimento="Saída"
+              valor="R$ 9,99"
+            />
+            <TransactionRow
+              descricao="Nome"
+              categoria="Venda"
+              data="Data"
+              metodo="Pix"
+              movimento="Fiado"
+              valor="R$ 9,99"
+            />
+            <TransactionRow
+              descricao="Nome"
+              categoria="Venda"
+              data="Data"
+              metodo="Pix"
+              movimento="Entrada"
+              valor="R$ 9,99"
+            />
 
-            <div className="flex gap-9 absolute -top-25 left-3 right-0 ">
-              <Card title="Entrada" value="R$ 5.947,99" color="text-input" />
-              <Card title="Lucro" value="R$ 5.947,99" color="text-input" />
-              <Card title="Saida" value="R$ 5.947,99" color="text-output" />
+            <div className="flex gap-9 absolute -top-40 left-3 right-0 flex-col">
+              <div className="flex justify-end pr-5">
+                <input
+                  ref={inputRef}
+                  type="month"
+                  value={date}
+                  onChange={(e) => setDate(e.target.value)}
+                  onClick={() => inputRef.current?.showPicker()}
+                  className="h-11 px-4 rounded-2xl border-2 bg-border-detail border-text-dark text-text-dark font-semibold hover:cursor-pointer "
+                />
+              </div>
+
+              <div className="flex gap-9">
+                <Card title="Entrada" value="R$ 5.947,99" color="text-input" />
+                <Card title="Lucro" value="R$ 5.947,99" color="text-input" />
+                <Card title="Saida" value="R$ 5.947,99" color="text-output" />
+              </div>
             </div>
           </div>
         </div>
