@@ -14,11 +14,7 @@ export function FormEntrada() {
   const [valueMetodo, setValueMetodo] = useState("Selecione");
 
   const [valorFormatado, setValorFormatado] = useState("");
-  const [openCategoria, setOpenCategoria] = useState(false);
-  const [valueCategoria, setValueCategoria] = useState("Selecione");
   const metodoRef = useRef<HTMLDivElement>(null);
-  const categoriaRef = useRef<HTMLDivElement>(null);
-
   function formatCurrency(value: string) {
     const onlyNumbers = value.replace(/\D/g, "");
 
@@ -39,7 +35,6 @@ export function FormEntrada() {
     resolver: zodResolver(formEntradaSchema),
     defaultValues: {
       metodo: "",
-      categoria: "",
     },
   });
 
@@ -49,22 +44,12 @@ export function FormEntrada() {
     setOpenMetodo(false);
   }
 
-  function handleSelectCategoria(option: string) {
-    setValueCategoria(option);
-    setValue("categoria", option, { shouldValidate: true });
-    setOpenCategoria(false);
-  }
-
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       const target = event.target as Node;
 
       if (metodoRef.current && !metodoRef.current.contains(target)) {
         setOpenMetodo(false);
-      }
-
-      if (categoriaRef.current && !categoriaRef.current.contains(target)) {
-        setOpenCategoria(false);
       }
     }
 
@@ -102,8 +87,11 @@ export function FormEntrada() {
           onClick={() => setOpenMetodo(!openMetodo)}
           className="text-fiado flex justify-between bg-border-detail color-fiado border-2 border-secondary rounded-2xl h-12.5 p-2 hover:cursor-pointer"
         >
-          <span className="mt-auto mb-auto">{valueMetodo}</span>
-
+          {valueMetodo === "Selecione" ? (
+            <span className="mt-auto mb-auto">{valueMetodo}</span>
+          ) : (
+            <span className="mt-auto mb-auto text-black">{valueMetodo}</span>
+          )}
           <CaretUpIcon
             className={`mt-auto mb-auto transition-all duration-150 ${
               openMetodo ? "rotate-0" : "rotate-180"
@@ -166,73 +154,6 @@ export function FormEntrada() {
           </div>
         )}
       </div>
-      <div className="flex flex-col gap-1" ref={categoriaRef}>
-        <span className="text-secondary">Categoria</span>
-        <button
-          type="button"
-          onClick={() => setOpenCategoria(!openCategoria)}
-          className="text-fiado flex justify-between bg-border-detail color-fiado border-2 border-secondary rounded-2xl h-12.5 p-2 hover:cursor-pointer"
-        >
-          <span className="mt-auto mb-auto">{valueCategoria}</span>
-          <CaretUpIcon
-            className={`mt-auto mb-auto transition-all duration-150 ${
-              openCategoria ? "rotate-0" : "rotate-180"
-            }`}
-            size={32}
-          />
-        </button>
-        {errors.categoria && (
-          <span className="text-red-500 text-sm">
-            {errors.categoria.message}
-          </span>
-        )}
-        {openCategoria && (
-          <div className="max-h-40 overflow-auto absolute mt-20 w-125 bg-background-light border border-border-detail rounded-lg shadow-lg z-10">
-            <DropdownItens
-              onClick={() => handleSelectCategoria("Vendas de produtos")}
-            >
-              Vendas de produtos
-            </DropdownItens>
-            <DropdownItens
-              onClick={() =>
-                handleSelectCategoria("Assinaturas / mensalidades")
-              }
-            >
-              Assinaturas / mensalidades
-            </DropdownItens>
-            <DropdownItens onClick={() => handleSelectCategoria("Comissões")}>
-              Comissões
-            </DropdownItens>
-            <DropdownItens
-              onClick={() => handleSelectCategoria("Juros Recebidos")}
-            >
-              Juros Recebidos
-            </DropdownItens>
-            <DropdownItens
-              onClick={() => handleSelectCategoria("Aluguel Recebido")}
-            >
-              Aluguel Recebido
-            </DropdownItens>
-            <DropdownItens onClick={() => handleSelectCategoria("Reembolso")}>
-              Reembolso
-            </DropdownItens>
-            <DropdownItens onClick={() => handleSelectCategoria("Cashback")}>
-              Cashback
-            </DropdownItens>
-            <DropdownItens
-              onClick={() =>
-                handleSelectCategoria("Investimentos / Rendimentos")
-              }
-            >
-              Investimentos / Rendimentos
-            </DropdownItens>
-            <DropdownItens onClick={() => handleSelectCategoria("Outros")}>
-              Outros
-            </DropdownItens>
-          </div>
-        )}
-      </div>
-
       <div className="flex flex-col gap-1">
         <span className="text-secondary">Valor</span>
         <input

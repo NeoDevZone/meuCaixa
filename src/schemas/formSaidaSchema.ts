@@ -9,7 +9,6 @@ function currencyToNumber(value: string) {
 export const formSaidaSchema = z.object({
   descricao: z.string().min(1, "Descrição obrigatória"),
   metodo: z.string().min(1, "Selecione um método"),
-  categoria: z.string().min(1, "Selecione uma categoria"),
   valor: z
     .string()
     .min(1, "Valor obrigatório")

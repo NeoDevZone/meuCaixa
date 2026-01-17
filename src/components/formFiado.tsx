@@ -1,22 +1,14 @@
-import { CaretUpIcon } from "@phosphor-icons/react";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { DropdownItens } from "./dropdownItens";
 import {
-  formFiadoSchema,
-  type FormFiadoSchema,
+  formPrimeiroFiadoSchema,
+  type FormPrimeiroFiadoSchema,
 } from "../schemas/formFiadoSchema";
 
 export function FormFiado() {
-  const [openMetodo, setOpenMetodo] = useState(false);
-  const [valueMetodo, setValueMetodo] = useState("Selecione");
   const [valorFormatado, setValorFormatado] = useState("");
-  const [openCategoria, setOpenCategoria] = useState(false);
-  const [valueCategoria, setValueCategoria] = useState("Selecione");
-  const metodoRef = useRef<HTMLDivElement>(null);
-  const categoriaRef = useRef<HTMLDivElement>(null);
 
   function formatCurrency(value: string) {
     const onlyNumbers = value.replace(/\D/g, "");
@@ -34,45 +26,9 @@ export function FormFiado() {
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm<FormFiadoSchema>({
-    resolver: zodResolver(formFiadoSchema),
-    defaultValues: {
-      metodo: "",
-      categoria: "",
-    },
+  } = useForm<FormPrimeiroFiadoSchema>({
+    resolver: zodResolver(formPrimeiroFiadoSchema),
   });
-
-  function handleSelectMetodo(option: string) {
-    setValueMetodo(option);
-    setValue("metodo", option, { shouldValidate: true });
-    setOpenMetodo(false);
-  }
-
-  function handleSelectCategoria(option: string) {
-    setValueCategoria(option);
-    setValue("categoria", option, { shouldValidate: true });
-    setOpenCategoria(false);
-  }
-
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      const target = event.target as Node;
-
-      if (metodoRef.current && !metodoRef.current.contains(target)) {
-        setOpenMetodo(false);
-      }
-
-      if (categoriaRef.current && !categoriaRef.current.contains(target)) {
-        setOpenCategoria(false);
-      }
-    }
-
-    document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
 
   return (
     <form
@@ -106,147 +62,6 @@ export function FormFiado() {
             {errors.descricao.message}
           </span>
         )}
-      </div>
-      <div className="flex gap-2.5 justify-between">
-        <div className="flex flex-col gap-1" ref={metodoRef}>
-          <span className="text-secondary">Método</span>
-          <button
-            type="button"
-            onClick={() => setOpenMetodo(!openMetodo)}
-            className="w-60 text-fiado flex justify-between bg-border-detail color-fiado border-2 border-secondary rounded-2xl h-12.5 p-2 hover:cursor-pointer"
-          >
-            <span className="mt-auto mb-auto">{valueMetodo}</span>
-
-            <CaretUpIcon
-              className={`mt-auto mb-auto transition-all duration-150 ${
-                openMetodo ? "rotate-0" : "rotate-180"
-              }`}
-              size={32}
-            />
-          </button>
-          {errors.metodo && (
-            <span className="text-red-500 text-sm">
-              {errors.metodo.message}
-            </span>
-          )}
-          {openMetodo && (
-            <div className="max-h-40 overflow-auto absolute mt-20 w-60 bg-background-light border border-border-detail rounded-lg shadow-lg z-10">
-              <DropdownItens onClick={() => handleSelectMetodo("Dinheiro")}>
-                Dinheiro
-              </DropdownItens>
-              <DropdownItens onClick={() => handleSelectMetodo("Pix")}>
-                Pix
-              </DropdownItens>
-              <DropdownItens
-                onClick={() => handleSelectMetodo("Cartão de crédito")}
-              >
-                Cartão de crédito
-              </DropdownItens>
-              <DropdownItens
-                onClick={() => handleSelectMetodo("Cartão de débito")}
-              >
-                Cartão de débito
-              </DropdownItens>
-              <DropdownItens
-                onClick={() => handleSelectMetodo("Transferência bancária")}
-              >
-                Transferência bancária
-              </DropdownItens>
-              <DropdownItens
-                onClick={() => handleSelectMetodo("Boleto bancário")}
-              >
-                Boleto bancário
-              </DropdownItens>
-              <DropdownItens onClick={() => handleSelectMetodo("Cheque")}>
-                Cheque
-              </DropdownItens>
-              <DropdownItens
-                onClick={() => handleSelectMetodo("Carteira Digital")}
-              >
-                Carteira Digital
-              </DropdownItens>
-              <DropdownItens
-                onClick={() => handleSelectMetodo("Débito automático")}
-              >
-                Débito automático
-              </DropdownItens>
-              <DropdownItens
-                onClick={() => handleSelectMetodo("Crédito Parcelado")}
-              >
-                Crédito Parcelado
-              </DropdownItens>
-              <DropdownItens onClick={() => handleSelectMetodo("Outros")}>
-                Outros
-              </DropdownItens>
-            </div>
-          )}
-        </div>
-        <div className="flex flex-col gap-1" ref={categoriaRef}>
-          <span className="text-secondary">Categoria</span>
-          <button
-            type="button"
-            onClick={() => setOpenCategoria(!openCategoria)}
-            className="w-60 text-fiado flex justify-between bg-border-detail color-fiado border-2 border-secondary rounded-2xl h-12.5 p-2 hover:cursor-pointer"
-          >
-            <span className="mt-auto mb-auto">{valueCategoria}</span>
-            <CaretUpIcon
-              className={`mt-auto mb-auto transition-all duration-150 ${
-                openCategoria ? "rotate-0" : "rotate-180"
-              }`}
-              size={32}
-            />
-          </button>
-          {errors.categoria && (
-            <span className="text-red-500 text-sm">
-              {errors.categoria.message}
-            </span>
-          )}
-          {openCategoria && (
-            <div className="max-h-40 overflow-auto absolute mt-20 w-60 bg-background-light border border-border-detail rounded-lg shadow-lg z-10">
-              <DropdownItens
-                onClick={() => handleSelectCategoria("Vendas de produtos")}
-              >
-                Vendas de produtos
-              </DropdownItens>
-              <DropdownItens
-                onClick={() =>
-                  handleSelectCategoria("Assinaturas / mensalidades")
-                }
-              >
-                Assinaturas / mensalidades
-              </DropdownItens>
-              <DropdownItens onClick={() => handleSelectCategoria("Comissões")}>
-                Comissões
-              </DropdownItens>
-              <DropdownItens
-                onClick={() => handleSelectCategoria("Juros Recebidos")}
-              >
-                Juros Recebidos
-              </DropdownItens>
-              <DropdownItens
-                onClick={() => handleSelectCategoria("Aluguel Recebido")}
-              >
-                Aluguel Recebido
-              </DropdownItens>
-              <DropdownItens onClick={() => handleSelectCategoria("Reembolso")}>
-                Reembolso
-              </DropdownItens>
-              <DropdownItens onClick={() => handleSelectCategoria("Cashback")}>
-                Cashback
-              </DropdownItens>
-              <DropdownItens
-                onClick={() =>
-                  handleSelectCategoria("Investimentos / Rendimentos")
-                }
-              >
-                Investimentos / Rendimentos
-              </DropdownItens>
-              <DropdownItens onClick={() => handleSelectCategoria("Outros")}>
-                Outros
-              </DropdownItens>
-            </div>
-          )}
-        </div>
       </div>
       <div className="flex flex-col gap-1">
         <span className="text-secondary">Valor</span>
