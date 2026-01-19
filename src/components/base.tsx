@@ -1,18 +1,17 @@
-import type { ReactNode } from "react";
+import { useState } from "react";
 import { Header } from "./header";
 import { LeftNavBar } from "./navbar";
 
-type BaseProps = {
-  children: ReactNode;
-};
+export function Base({ children }: { children: React.ReactNode }) {
+  const [isNavOpen, setIsNavOpen] = useState(false);
 
-export function Base({ children }: BaseProps) {
   return (
-    <div className="flex bg-background-light">
-      <LeftNavBar />
+    <div className="flex min-h-screen">
+      <LeftNavBar isOpen={isNavOpen} onClose={() => setIsNavOpen(false)} />
       <div className="flex-1 flex flex-col">
-        <Header />
-        {children}
+        {" "}
+        <Header onToggleNav={() => setIsNavOpen(!isNavOpen)} />
+        <main className="flex-1">{children}</main>
       </div>
     </div>
   );

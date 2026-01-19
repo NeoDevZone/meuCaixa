@@ -29,11 +29,13 @@ export function TransactionRow({
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <div className="w-[98%] text-xl font-semibold grid grid-cols-4 p-4 text-border-detail border-t border-border-detail m-auto">
-      <span className="text-center">{descricao}</span>
-      <span className="text-center">{data}</span>
-      <span className="text-center">{metodo}</span>
-      <div className="flex justify-center items-center gap-2.5">
+    <div className="w-full min-w-125 md:min-w-0 text-md sm:text-xl font-semibold grid grid-cols-5 md:grid-cols-12 p-3 sm:p-4 text-border-detail border-t border-border-detail m-auto">
+      <span className="text-center md:text-left md:col-span-3">
+        {descricao}
+      </span>
+      <span className="text-center md:col-span-3">{data}</span>
+      <span className="text-center md:col-span-3">{metodo}</span>
+      <div className="flex justify-between items-center gap-2.5 col-span-2 md:col-span-3">
         <span
           className={`text-center font-semibold ${valueColorMap[movimento]}`}
         >

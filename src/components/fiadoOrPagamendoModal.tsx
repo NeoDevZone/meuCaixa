@@ -56,27 +56,29 @@ export function FiadoOrPagamentoModal({ isOpen, onClose, type }: ModalProps) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none">
+    <div className="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none px-4">
       <div
         className="fixed inset-0 bg-black opacity-50"
         onClick={onClose}
       ></div>
 
-      <div className="relative w-auto max-w-lg mx-auto my-6 z-50">
-        <div className="relative flex flex-col w-full bg-white border-0 rounded-lg shadow-lg outline-none focus:outline-none p-6">
-          <div className="flex items-start justify-between border-b border-solid border-slate-200 pb-3 mb-4 rounded-t">
+      <div className="relative w-full max-w-sm sm:max-w-md md:max-w-lg mx-auto my-4 sm:my-6 z-50">
+        <div className="relative flex flex-col w-full bg-white border-0 rounded-lg shadow-lg outline-none focus:outline-none p-4 sm:p-6">
+          <div className="flex items-start justify-between border-b border-solid border-slate-200 pb-2 sm:pb-3 mb-3 sm:mb-4 rounded-t">
             {type === "pagamento" ? (
-              <h3 className="text-xl font-semibold text-input">
+              <h3 className="text-lg sm:text-xl font-semibold text-input">
                 Novo Pagamento
               </h3>
             ) : (
-              <h3 className="text-xl font-semibold text-output">Novo Fiado</h3>
+              <h3 className="text-lg sm:text-xl font-semibold text-output">
+                Novo Fiado
+              </h3>
             )}
             <button
-              className="cursor-pointer p-1 ml-auto bg-transparent border-0 text-output float-right text-2xl leading-none font-semibold outline-none focus:outline-none hover:text-red-500 transition-colors"
+              className="cursor-pointer p-1 ml-auto bg-transparent border-0 text-output float-right text-xl sm:text-2xl leading-none font-semibold outline-none focus:outline-none hover:text-red-500 transition-colors"
               onClick={onClose}
             >
-              <XCircleIcon size={24} />
+              <XCircleIcon size={20} />
             </button>
           </div>
 
@@ -91,9 +93,9 @@ export function FiadoOrPagamentoModal({ isOpen, onClose, type }: ModalProps) {
             )}
           </div>
 
-          <div className="flex items-center justify-center pt-4 mt-4 border-t border-solid border-slate-200 rounded-b">
+          <div className="flex items-center justify-center pt-3 sm:pt-4 mt-3 sm:mt-4 border-t border-solid border-slate-200 rounded-b">
             <button
-              className="rounded-2xl hover:rounded-sm hover:border-2 h-12 border-text-dark cursor-pointer bg-secondary text-white hover:bg-primary active:bg-input font-bold uppercase text-sm px-6 py-3 shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+              className="rounded-2xl hover:rounded-sm hover:border-2 h-10 sm:h-12 border-text-dark cursor-pointer bg-secondary text-white hover:bg-primary active:bg-input font-bold uppercase text-xs sm:text-sm px-4 sm:px-6 py-2 sm:py-3 shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
               onClick={() => {
                 formRef.current?.submit();
               }}

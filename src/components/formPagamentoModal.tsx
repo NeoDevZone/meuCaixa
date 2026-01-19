@@ -73,7 +73,7 @@ export const FormPagamentoModal = forwardRef<
       onSubmit={handleSubmit(onSubmit, (errors) =>
         console.log("Erros de validação:", errors),
       )}
-      className="w-100 h-full rounded-2xl p-5 gap-7.5 flex flex-col shadow-lg shadow-black/25 drop-shadow-white/40 drop-shadow-md"
+      className="w-full h-full rounded-2xl p-4 sm:p-5 gap-5 sm:gap-7.5 flex flex-col shadow-lg shadow-black/25 drop-shadow-white/40 drop-shadow-md"
     >
       <div className="flex flex-col gap-1" ref={metodoRef}>
         <span className="text-secondary">Método</span>

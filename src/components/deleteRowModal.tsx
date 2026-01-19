@@ -15,7 +15,7 @@ export function DeleteRowModal({ isOpen, onClose, children }: ModalProps) {
         className="fixed inset-0 bg-black opacity-50"
         onClick={onClose}
       ></div>
-      <div className="relative w-auto max-w-lg mx-auto my-6 z-50">
+      <div className="relative w-auto max-w-sm sm:max-w-md md:max-w-lg mx-auto my-6 z-50">
         <div className="relative flex flex-col w-full bg-white border-0 rounded-lg shadow-lg outline-none focus:outline-none p-6">
           <div className="flex items-start justify-between border-b border-solid border-slate-200 pb-3 mb-4 rounded-t">
             <h3 className="text-xl font-semibold text-red-500">

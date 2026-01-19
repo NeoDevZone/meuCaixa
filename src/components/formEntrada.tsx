@@ -65,7 +65,7 @@ export function FormEntrada() {
       onSubmit={handleSubmit((data) => {
         console.log("Dados validados:", data);
       })}
-      className="w-135 h-full bg-text-dark rounded-2xl p-5 gap-7.5 flex flex-col"
+      className="w-full max-w-sm sm:max-w-md md:max-w-135 h-full bg-text-dark rounded-2xl p-4 sm:p-5 gap-5 sm:gap-7.5 flex flex-col"
     >
       <div className="flex flex-col gap-1">
         <span className="text-secondary">Descrição</span>
@@ -103,7 +103,7 @@ export function FormEntrada() {
           <span className="text-red-500 text-sm">{errors.metodo.message}</span>
         )}
         {openMetodo && (
-          <div className="max-h-40 overflow-auto absolute mt-20 w-125 bg-background-light border border-border-detail rounded-lg shadow-lg z-10">
+          <div className="max-h-40 overflow-auto absolute mt-20 w-full max-w-87.5 md:max-w-125 bg-background-light border border-border-detail rounded-lg shadow-lg z-10">
             <DropdownItens onClick={() => handleSelectMetodo("Dinheiro")}>
               Dinheiro
             </DropdownItens>
@@ -172,10 +172,10 @@ export function FormEntrada() {
           <span className="text-red-500 text-sm">{errors.valor.message}</span>
         )}
       </div>
-      <div className="w-100% flex justify-center">
+      <div className="w-full flex justify-center">
         <button
           type="submit"
-          className="w-67.5 h-14 text-text-dark text-lg font-bold bg-secondary rounded-2xl hover:cursor-pointer hover:rounded-sm hover:border-2 hover:border-border-detail transition-all duration-200"
+          className="w-full max-w-50 sm:max-w-67.5 h-12 sm:h-14 text-text-dark text-base sm:text-lg font-bold bg-secondary rounded-2xl hover:cursor-pointer hover:rounded-sm hover:border-2 hover:border-border-detail transition-all duration-200"
         >
           Salvar
         </button>
