@@ -7,20 +7,21 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FiadoOrPagamentoModal } from "./fiadoOrPagamendoModal";
 import { useEffect, useRef, useState } from "react";
 import { List } from "phosphor-react";
+import { HistoricoModal } from "./historicoModal";
 
 type RowProps = {
   valor: string;
   comprador: string;
-  data: string;
 };
 
-export function FiadoRow({ valor, comprador, data }: RowProps) {
+export function FiadoRow({ valor, comprador }: RowProps) {
   const { handleSubmit } = useForm<FormFiadoSchema>({
     resolver: zodResolver(formFiadoSchema),
   });
 
   const [isModalPaymentOpen, setIsModalPaymentOpen] = useState(false);
   const [isModalFiadoOpen, setIsModalFiadoOpen] = useState(false);
+  const [isModalHistoricoOpen, setIsModalHistoricoOpen] = useState(false);
 
   const [openButtons, setOpenButtons] = useState(false);
   const buttonsRef = useRef<HTMLDivElement>(null);
@@ -45,18 +46,15 @@ export function FiadoRow({ valor, comprador, data }: RowProps) {
       })}
       className="w-full min-w-125 md:min-w-0 text-md sm:text-xl font-semibold grid grid-cols-6 md:grid-cols-12 p-3 sm:p-4 text-border-detail border-t border-border-detail m-auto"
     >
-      <span className="text-left col-span-2 md:col-span-4 h-max flex mt-auto mb-auto">
+      <span className="text-left col-span-2 md:col-span-5 h-max flex mt-auto mb-auto">
         {comprador}
       </span>
-      <span className="justify-center col-span-1 md:col-span-3 h-max flex mt-auto mb-auto">
-        {data}
-      </span>
-      <div className="flex justify-center items-center col-span-2 md:col-span-4">
+      <div className="flex justify-center items-center col-span-2 md:col-span-5">
         <span className={`text-center font-semibold text-fiado`}>{valor}</span>
       </div>
       <div
         ref={buttonsRef}
-        className="relative flex justify-end items-center col-span-1"
+        className="relative flex justify-end items-center col-span-2 md:col-span-2"
       >
         <button
           type="button"
@@ -86,7 +84,11 @@ export function FiadoRow({ valor, comprador, data }: RowProps) {
             >
               Pagar Fiado
             </button>
-            <button className="h-7.5 cursor-pointer text-white w-32 bg-primary rounded-lg text-lg text-center hover:rounded-sm hover:border transition-all duration-150">
+            <button
+              onClick={() => setIsModalHistoricoOpen(true)}
+              type="button"
+              className="h-7.5 cursor-pointer text-white w-32 bg-primary rounded-lg text-lg text-center hover:rounded-sm hover:border transition-all duration-150"
+            >
               Histórico
             </button>
           </div>
@@ -101,6 +103,10 @@ export function FiadoRow({ valor, comprador, data }: RowProps) {
         isOpen={isModalFiadoOpen}
         onClose={() => setIsModalFiadoOpen(false)}
         type="fiado"
+      />
+      <HistoricoModal
+        isOpen={isModalHistoricoOpen}
+        onClose={() => setIsModalHistoricoOpen(false)}
       />
     </form>
   );

@@ -11,7 +11,7 @@ export function Base({ children }: { children: React.ReactNode }) {
       <div className="flex-1 flex flex-col">
         {" "}
         <Header onToggleNav={() => setIsNavOpen(!isNavOpen)} />
-        <main className="flex-1">{children}</main>
+        <main className="flex-1 pt-20 sm:pt-24">{children}</main>
       </div>
     </div>
   );

@@ -7,7 +7,7 @@ type HeaderProps = {
 
 export function Header({ onToggleNav }: HeaderProps) {
   return (
-    <div className="flex h-20 sm:h-24 bg-primary justify-between items-center px-4">
+    <div className="fixed w-full flex h-20 sm:h-24 bg-primary justify-between items-center px-4 z-10">
       <button onClick={onToggleNav} className="text-white cursor-pointer">
         <List size={32} />
       </button>

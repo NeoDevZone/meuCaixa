@@ -51,9 +51,9 @@ export function Home() {
           Extrato
         </h1>
         <div>
-          <div className="bg-text-dark rounded-2xl gap-2.5 pt-20 sm:pt-30 w-full max-w-100 sm:w-200 relative mb-10 drop-shadow-black/30 shadow-[-4px_6px_14px_rgba(0,0,0,0.4)]">
+          <div className="bg-text-dark rounded-2xl gap-2.5 pt-20 sm:pt-30 w-full max-w-100 sm:min-w-200 relative mb-10 drop-shadow-black/30 shadow-[-4px_6px_14px_rgba(0,0,0,0.4)]">
             <div className="overflow-x-auto md:overflow-x-visible">
-              <div className="text-lg sm:text-xl font-semibold w-full min-w-125 md:min-w-0 grid grid-cols-5 md:grid-cols-12 text-border-detail p-3 sm:p-4 border-t border-border-detail m-auto">
+              <div className="text-lg sm:text-xl font-semibold w-full min-w-125 md: grid grid-cols-5 md:grid-cols-12 text-border-detail p-3 sm:p-4 border-t border-border-detail m-auto">
                 <span className="text-center md:text-left col-span-1 md:col-span-3">
                   Descrição
                 </span>
