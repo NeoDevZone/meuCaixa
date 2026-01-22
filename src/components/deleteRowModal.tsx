@@ -1,12 +1,47 @@
 import { XCircleIcon } from "@phosphor-icons/react";
+import axios from "axios";
+import { useState } from "react";
 
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
+  id: string | undefined;
+  movimento: "Entrada" | "Saida";
 }
 
-export function DeleteRowModal({ isOpen, onClose, children }: ModalProps) {
+export function DeleteRowModal({
+  isOpen,
+  onClose,
+  children,
+  id,
+  movimento,
+}: ModalProps) {
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const handleDelete = async () => {
+    setIsDeleting(true);
+    try {
+      if (movimento === "Saida") {
+        await axios.delete(
+          `${import.meta.env.VITE_API_BASE_URL}/api/saidas/delete/${id}`,
+        );
+      } else if (movimento === "Entrada") {
+        await axios.delete(
+          `${import.meta.env.VITE_API_BASE_URL}/api/entradas/delete/${id}`,
+        );
+      }
+      alert("Transação deletada!");
+      onClose();
+      window.location.reload(); // Recarrega a página para atualizar a lista
+    } catch (error) {
+      console.error("Error deleting transaction:", error);
+      alert("Erro ao deletar transação!");
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -34,11 +69,11 @@ export function DeleteRowModal({ isOpen, onClose, children }: ModalProps) {
               className="cursor-pointer bg-secondary text-white hover:bg-primary active:bg-input font-bold uppercase text-sm px-6 py-3 rounded-2xl hover:rounded-sm hover:border-2 h-12 border-text-dark shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
               type="button"
               onClick={() => {
-                alert("Transação deletada!");
+                handleDelete();
                 onClose();
               }}
             >
-              Salvar alterações
+              {isDeleting ? "Deletando..." : "Deletar Transação"}
             </button>
           </div>
         </div>

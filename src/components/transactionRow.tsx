@@ -2,24 +2,24 @@ import { XCircleIcon } from "@phosphor-icons/react";
 import { useState } from "react";
 import { DeleteRowModal } from "./deleteRowModal";
 
-type TransactionType = "Entrada" | "Saída" | "Fiado";
+type TransactionType = "Entrada" | "Saida";
 
 type RowProps = {
+  id?: string;
   movimento: TransactionType;
   valor: string;
   descricao: string;
   data: string;
   metodo: string;
-  categoria: string;
 };
 
 const valueColorMap: Record<TransactionType, string> = {
   Entrada: "text-green-500",
-  Saída: "text-red-500",
-  Fiado: "text-gray-400",
+  Saida: "text-red-500",
 };
 
 export function TransactionRow({
+  id,
   movimento,
   valor,
   descricao,
@@ -27,7 +27,6 @@ export function TransactionRow({
   metodo,
 }: RowProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   return (
     <div className="w-full min-w-125 md:min-w-0 text-md sm:text-xl font-semibold grid grid-cols-5 md:grid-cols-12 p-3 sm:p-4 text-border-detail border-t border-border-detail m-auto">
       <span className="text-center md:text-left md:col-span-3">
@@ -51,6 +50,8 @@ export function TransactionRow({
         <DeleteRowModal
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
+          id={id}
+          movimento={movimento}
         >
           <p>Tem certeza que deseja excluir esta transação?</p>
         </DeleteRowModal>
