@@ -9,8 +9,11 @@ import {
 } from "../schemas/formEntradaSchema";
 import { DropdownItens } from "./dropdownItens";
 import axios from "axios";
+import { useCliente } from "../hooks/useCliente";
+import { withCliente } from "../services/api";
 
 export function FormEntrada() {
+  const { clienteId } = useCliente();
   const [openMetodo, setOpenMetodo] = useState(false);
   const [valueMetodo, setValueMetodo] = useState("Selecione");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -72,8 +75,14 @@ export function FormEntrada() {
             data.valor.replace(/[R$\s.]/g, "").replace(",", "."),
           );
 
+          if (!clienteId) {
+            alert("Cliente não encontrado na URL.");
+            setIsSubmitting(false);
+            return;
+          }
+
           await axios.post(
-            `${import.meta.env.VITE_API_BASE_URL}/api/entradas/create`,
+            `${import.meta.env.VITE_API_BASE_URL}${withCliente(clienteId, "/entradas/create")}`,
             {
               descricao: data.descricao,
               metodo: data.metodo,

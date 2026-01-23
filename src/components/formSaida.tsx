@@ -8,12 +8,17 @@ import {
   type FormSaidaSchema,
 } from "../schemas/formSaidaSchema";
 import { DropdownItens } from "./dropdownItens";
+import axios from "axios";
+import { useCliente } from "../hooks/useCliente";
+import { withCliente } from "../services/api";
 
 export function FormSaida() {
+  const { clienteId } = useCliente();
   const [openMetodo, setOpenMetodo] = useState(false);
   const [valueMetodo, setValueMetodo] = useState("Selecione");
 
   const [valorFormatado, setValorFormatado] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const metodoRef = useRef<HTMLDivElement>(null);
   function formatCurrency(value: string) {
     const onlyNumbers = value.replace(/\D/g, "");
@@ -62,8 +67,42 @@ export function FormSaida() {
 
   return (
     <form
-      onSubmit={handleSubmit((data) => {
-        console.log("Dados validados:", data);
+      onSubmit={handleSubmit(async (data) => {
+        setIsSubmitting(true);
+        try {
+          // Converter valor de string (R$ 1.234,56) para number
+          const valorNumerico = Number(
+            data.valor.replace(/[R$\s.]/g, "").replace(",", "."),
+          );
+
+          if (!clienteId) {
+            alert("Cliente não encontrado na URL.");
+            setIsSubmitting(false);
+            return;
+          }
+
+          await axios.post(
+            `${import.meta.env.VITE_API_BASE_URL}${withCliente(clienteId, "/saidas/create")}`,
+            {
+              descricao: data.descricao,
+              metodo: data.metodo,
+              valor: valorNumerico,
+            },
+          );
+
+          alert("Saída cadastrada com sucesso!");
+          setValorFormatado("");
+          setValueMetodo("Selecione");
+          setValue("descricao", "");
+          setValue("metodo", "");
+          setValue("valor", "");
+          window.location.reload();
+        } catch (error) {
+          console.error("Erro ao criar saída:", error);
+          alert("Erro ao cadastrar saída!");
+        } finally {
+          setIsSubmitting(false);
+        }
       })}
       className="w-full max-w-sm sm:max-w-md md:max-w-135 h-full bg-text-dark rounded-2xl p-4 sm:p-5 gap-5 sm:gap-7.5 flex flex-col"
     >
@@ -178,9 +217,10 @@ export function FormSaida() {
       <div className="w-full flex justify-center">
         <button
           type="submit"
+          disabled={isSubmitting}
           className="w-full max-w-50 sm:max-w-67.5 h-12 sm:h-14 text-text-dark text-base sm:text-lg font-bold bg-secondary rounded-2xl hover:cursor-pointer hover:rounded-sm hover:border-2 hover:border-border-detail transition-all duration-200"
         >
-          Salvar
+          {isSubmitting ? "Salvando..." : "Salvar"}
         </button>
       </div>
     </form>

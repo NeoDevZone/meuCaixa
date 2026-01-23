@@ -1,15 +1,102 @@
 // src/components/fiadoOrPagamendoModal.tsx
 import { XCircleIcon } from "@phosphor-icons/react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 import { HistoricoRow } from "./historicoRow";
-// import { useState } from "react";
+import { useCliente } from "../hooks/useCliente";
+import { withCliente } from "../services/api";
 
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
+  compradorId: string;
+  compradorNome: string;
 }
 
-export function HistoricoModal({ isOpen, onClose }: ModalProps) {
-  //   const [loading, setLoading] = useState(false);
+type HistoricoItem = {
+  _id: string;
+  descricao: string;
+  valor: number;
+  tipo: "fiado" | "pagamento";
+  idComprador: string;
+  data: string;
+};
+
+function formatCurrency(value: number) {
+  return new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  }).format(value);
+}
+
+function formatDate(value: string) {
+  const date = new Date(value);
+  return date.toLocaleDateString("pt-BR");
+}
+
+export function HistoricoModal({
+  isOpen,
+  onClose,
+  compradorId,
+  compradorNome,
+}: ModalProps) {
+  const { clienteId } = useCliente();
+  const [loading, setLoading] = useState(false);
+  const [historico, setHistorico] = useState<HistoricoItem[]>([]);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const fetchHistorico = async () => {
+      if (!clienteId) return;
+
+      setLoading(true);
+      try {
+        const response = await axios.get<HistoricoItem[]>(
+          `${import.meta.env.VITE_API_BASE_URL}${withCliente(
+            clienteId,
+            `/fiados/comprador/${compradorId}`,
+          )}`,
+        );
+        setHistorico(response.data);
+      } catch (error) {
+        console.error("Erro ao buscar histórico:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchHistorico();
+  }, [isOpen, compradorId, clienteId]);
+
+  const handleDelete = async (id: string) => {
+    const confirmed = window.confirm(
+      "Tem certeza que deseja excluir esta transação?",
+    );
+    if (!confirmed) return;
+
+    if (!clienteId) {
+      alert("Cliente não encontrado na URL.");
+      return;
+    }
+
+    setDeletingId(id);
+    try {
+      await axios.delete(
+        `${import.meta.env.VITE_API_BASE_URL}${withCliente(
+          clienteId,
+          `/fiados/delete/${id}`,
+        )}`,
+      );
+      setHistorico((prev) => prev.filter((item) => item._id !== id));
+    } catch (error) {
+      console.error("Erro ao deletar transação:", error);
+      alert("Erro ao deletar transação!");
+    } finally {
+      setDeletingId(null);
+    }
+  };
 
   if (!isOpen) return null;
 
@@ -33,31 +120,30 @@ export function HistoricoModal({ isOpen, onClose }: ModalProps) {
           </div>
 
           <div className="relative flex-auto text-primary">
-            <div className="overflow-x-auto md:overflow-x-visible">
-              <HistoricoRow
-                comprador="Comprador 1"
-                descricao="Descrição 1"
-                data="01/01/2024"
-                valor="R$100,00"
-              />
-              <HistoricoRow
-                comprador="Comprador 1"
-                descricao="Descrição 1"
-                data="01/01/2024"
-                valor="R$100,00"
-              />
-              <HistoricoRow
-                comprador="Comprador 1"
-                descricao="Descrição 1"
-                data="01/01/2024"
-                valor="R$10000,00"
-              />
-              <HistoricoRow
-                comprador="Comprador 1"
-                descricao="Descrição 1"
-                data="01/01/2024"
-                valor="R$100,00"
-              />
+            <div className="overflow-x-auto md:overflow-x-visible overflow-y-auto max-h-96">
+              {loading && (
+                <p className="p-4 text-center text-sm text-gray-600">
+                  Carregando histórico...
+                </p>
+              )}
+              {!loading && historico.length === 0 && (
+                <p className="p-4 text-center text-sm text-gray-600">
+                  Nenhuma movimentação encontrada.
+                </p>
+              )}
+              {!loading &&
+                historico.map((item) => (
+                  <HistoricoRow
+                    key={item._id}
+                    id={item._id}
+                    comprador={compradorNome}
+                    descricao={item.descricao}
+                    data={formatDate(item.data)}
+                    valor={formatCurrency(item.valor)}
+                    onDelete={handleDelete}
+                    deletingId={deletingId}
+                  />
+                ))}
             </div>
           </div>
         </div>

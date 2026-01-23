@@ -2,7 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import { Base } from "../components/base";
 import { Card } from "../components/card";
 import { TransactionRow } from "../components/transactionRow";
-import axios from "axios";
+import { ErrorState } from "../components/errorState";
+import { api, withCliente } from "../services/api";
+import { useCliente } from "../hooks/useCliente";
 
 interface TransactionRowProps {
   _id: string;
@@ -10,9 +12,12 @@ interface TransactionRowProps {
   data: string;
   valor: number;
   tipo: "Entrada" | "Saida";
+  metodo: string;
 }
 
 export function Home() {
+  const { clienteId } = useCliente();
+
   const getCurrentMonth = () => {
     const now = new Date();
     const year = now.getFullYear();
@@ -32,24 +37,44 @@ export function Home() {
     return params.get("month");
   };
 
+  const [saidas, setSaidas] = useState(0);
+  const [entradas, setEntradas] = useState(0);
+  const [lucro, setLucro] = useState(0);
+
   const [date, setDate] = useState(getMonthFromURL() ?? getCurrentMonth());
   const [isSummaryModalOpen, setIsSummaryModalOpen] = useState(false);
   const [transactions, setTransactions] = useState<TransactionRowProps[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
+    if (!clienteId) return;
+
     const fetchTransactions = async () => {
       try {
-        const response = await axios.get<TransactionRowProps[]>(
-          `${import.meta.env.VITE_API_BASE_URL}/api/extrato/data?data=${date}`,
+        const response = await api.get<TransactionRowProps[]>(
+          withCliente(clienteId, `/extrato/data?data=${date}`),
         );
         setTransactions(response.data);
+
+        const saidasCalc = response.data
+          .filter((t) => t.tipo === "Saida")
+          .reduce((acc, curr) => acc + curr.valor, 0);
+
+        const entradasCalc = response.data
+          .filter((t) => t.tipo === "Entrada")
+          .reduce((acc, curr) => acc + curr.valor, 0);
+
+        const lucroCalc = entradasCalc - saidasCalc;
+
+        setSaidas(saidasCalc);
+        setEntradas(entradasCalc);
+        setLucro(lucroCalc);
       } catch (error) {
         console.error("Error fetching transactions:", error);
       }
     };
 
     fetchTransactions();
-  }, [date]);
+  }, [date, clienteId]);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -75,6 +100,17 @@ export function Home() {
       `${window.location.pathname}?${params.toString()}`,
     );
   };
+
+  if (!clienteId) {
+    return (
+      <Base>
+        <ErrorState
+          title="Cliente não encontrado"
+          message="Verifique a URL ou contate o suporte."
+        />
+      </Base>
+    );
+  }
 
   return (
     <Base>
@@ -105,7 +141,7 @@ export function Home() {
                   id={transaction._id}
                   descricao={transaction.descricao}
                   data={transaction.data}
-                  metodo="Boleto"
+                  metodo={transaction.metodo}
                   movimento={transaction.tipo}
                   valor={formatCurrency(transaction.valor)}
                 />
@@ -132,9 +168,21 @@ export function Home() {
                 </button>
               </div>
               <div className="hidden w-200 md:flex gap-4 sm:gap-9 flex-col md:flex-row justify-center">
-                <Card title="Entrada" value="R$ 5.947,99" color="text-input" />
-                <Card title="Saida" value="R$ 5.947,99" color="text-output" />
-                <Card title="Lucro" value="R$ 5.947,99" color="text-input" />
+                <Card
+                  title="Entrada"
+                  value={formatCurrency(entradas)}
+                  color="text-input"
+                />
+                <Card
+                  title="Saida"
+                  value={formatCurrency(saidas)}
+                  color="text-output"
+                />
+                <Card
+                  title="Lucro"
+                  value={formatCurrency(entradas - saidas)}
+                  color={`${lucro < 0 ? "text-output" : "text-input"}`}
+                />
               </div>
             </div>
           </div>
@@ -158,9 +206,21 @@ export function Home() {
                 </button>
               </div>
               <div className="relative w-50 flex-auto flex flex-col gap-4">
-                <Card title="Entrada" value="R$ 5.947,99" color="text-input" />
-                <Card title="Saida" value="R$ 5.947,99" color="text-output" />
-                <Card title="Lucro" value="R$ 5.947,99" color="text-input" />
+                <Card
+                  title="Entrada"
+                  value={formatCurrency(entradas)}
+                  color="text-input"
+                />
+                <Card
+                  title="Saida"
+                  value={formatCurrency(saidas)}
+                  color="text-output"
+                />
+                <Card
+                  title="Lucro"
+                  value={formatCurrency(lucro)}
+                  color={`${lucro <= 0 ? "text-output" : "text-input"}`}
+                />
               </div>
             </div>
           </div>

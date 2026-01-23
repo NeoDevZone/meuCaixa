@@ -1,6 +1,44 @@
+import { useCallback, useEffect, useState } from "react";
+import axios from "axios";
 import { FiadoRow } from "./fiadoRow";
+import { useCliente } from "../hooks/useCliente";
+import { withCliente } from "../services/api";
+
+type Comprador = {
+  _id: string;
+  nome: string;
+  divida: number;
+};
+
+function formatCurrency(value: number): string {
+  return new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  }).format(value);
+}
 
 export function TabelaFiado() {
+  const { clienteId } = useCliente();
+  const [compradores, setCompradores] = useState<Comprador[]>([]);
+
+  const fetchCompradores = useCallback(async () => {
+    try {
+      if (!clienteId) return;
+
+      const response = await axios.get<Comprador[]>(
+        `${import.meta.env.VITE_API_BASE_URL}${withCliente(clienteId, "/compradores")}`,
+      );
+      setCompradores(response.data);
+    } catch (error) {
+      console.error("Erro ao buscar compradores:", error);
+    }
+  }, [clienteId]);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    fetchCompradores();
+  }, [fetchCompradores]);
+
   return (
     <div>
       <div className="bg-text-dark rounded-2xl gap-2.5 w-full max-w-sm sm:min-w-150 mb-10 drop-shadow-black/30 shadow-[-4px_6px_14px_rgba(0,0,0,0.4)]">
@@ -11,13 +49,16 @@ export function TabelaFiado() {
             </span>
             <span className="text-center col-span-2 md:col-span-5">Valor</span>
           </div>
-          <FiadoRow comprador="Antonio Gabriel" valor="R$ 999.999,99" />
-          <FiadoRow comprador="Comprador" valor="R$ 9,99" />
-          <FiadoRow comprador="Comprador" valor="R$ 9,99" />
-          <FiadoRow comprador="Comprador" valor="R$ 9,99" />
-          <FiadoRow comprador="Comprador" valor="R$ 9,99" />
-          <FiadoRow comprador="Comprador" valor="R$ 9,99" />
-          
+          {compradores.map((comprador) => (
+            <FiadoRow
+              key={comprador._id}
+              comprador={comprador.nome}
+              valor={formatCurrency(comprador.divida)}
+              compradorId={comprador._id}
+              divida={comprador.divida}
+              onRefresh={fetchCompradores}
+            />
+          ))}
         </div>
       </div>
     </div>

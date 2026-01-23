@@ -12,9 +12,18 @@ import { HistoricoModal } from "./historicoModal";
 type RowProps = {
   valor: string;
   comprador: string;
+  compradorId: string;
+  divida: number;
+  onRefresh: () => void;
 };
 
-export function FiadoRow({ valor, comprador }: RowProps) {
+export function FiadoRow({
+  valor,
+  comprador,
+  compradorId,
+  divida,
+  onRefresh,
+}: RowProps) {
   const { handleSubmit } = useForm<FormFiadoSchema>({
     resolver: zodResolver(formFiadoSchema),
   });
@@ -98,15 +107,22 @@ export function FiadoRow({ valor, comprador }: RowProps) {
         isOpen={isModalPaymentOpen}
         onClose={() => setIsModalPaymentOpen(false)}
         type="pagamento"
+        compradorId={compradorId}
+        maxDivida={divida}
+        onSuccess={onRefresh}
       />
       <FiadoOrPagamentoModal
         isOpen={isModalFiadoOpen}
         onClose={() => setIsModalFiadoOpen(false)}
         type="fiado"
+        compradorId={compradorId}
+        onSuccess={onRefresh}
       />
       <HistoricoModal
         isOpen={isModalHistoricoOpen}
         onClose={() => setIsModalHistoricoOpen(false)}
+        compradorId={compradorId}
+        compradorNome={comprador}
       />
     </form>
   );

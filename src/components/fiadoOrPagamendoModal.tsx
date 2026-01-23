@@ -3,30 +3,70 @@ import { XCircleIcon } from "@phosphor-icons/react";
 import { FormPagamentoModal } from "./formPagamentoModal";
 import { FormFiadoModal } from "./formFiadoModal";
 import { useRef, useState } from "react";
+import axios from "axios";
 import type {
   FormFiadoSchema,
   FormPagamentoSchema,
 } from "../schemas/formFiadoSchema";
+import { withCliente } from "../services/api";
+import { useCliente } from "../hooks/useCliente";
 
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   type: string;
+  compradorId: string;
+  maxDivida?: number;
+  onSuccess?: () => void;
 }
 
-export function FiadoOrPagamentoModal({ isOpen, onClose, type }: ModalProps) {
+function currencyToNumber(value: string) {
+  return Number(value.replace(/[R$\s.]/g, "").replace(",", "."));
+}
+
+export function FiadoOrPagamentoModal({
+  isOpen,
+  onClose,
+  type,
+  compradorId,
+  maxDivida,
+  onSuccess,
+}: ModalProps) {
+  const { clienteId } = useCliente();
   const [loading, setLoading] = useState(false);
   const formRef = useRef<{ submit: () => void } | null>(null);
 
-  function handlePagamentoSubmit(dados: FormPagamentoSchema) {
+  async function handlePagamentoSubmit(dados: FormPagamentoSchema) {
     try {
       setLoading(true);
-      console.log("Enviando Pagamento para API:", dados);
+      const valorNumerico = currencyToNumber(dados.valor);
+      const metodoNormalizado = dados.metodo.toLowerCase();
 
-      // Exemplo de Requisição:
-      // await api.post('/pagamentos', dados);
+      if (typeof maxDivida === "number" && valorNumerico > maxDivida) {
+        alert("O pagamento não pode ser maior que a dívida atual.");
+        setLoading(false);
+        return;
+      }
+
+      if (!clienteId) {
+        alert("Cliente não encontrado na URL.");
+        setLoading(false);
+        return;
+      }
+
+      await axios.post(
+        `${import.meta.env.VITE_API_BASE_URL}${withCliente(
+          clienteId,
+          `/fiados/pagamento/${compradorId}`,
+        )}`,
+        {
+          metodo: metodoNormalizado,
+          valor: valorNumerico,
+        },
+      );
 
       alert("Pagamento salvo com sucesso!");
+      onSuccess?.();
       onClose();
     } catch (error) {
       console.log(error);
@@ -36,14 +76,30 @@ export function FiadoOrPagamentoModal({ isOpen, onClose, type }: ModalProps) {
     }
   }
 
-  function handleFiadoSubmit(dados: FormFiadoSchema) {
+  async function handleFiadoSubmit(dados: FormFiadoSchema) {
     try {
       setLoading(true);
-      console.log("Enviando Fiado para API:", dados);
+      const valorNumerico = currencyToNumber(dados.valor);
 
-      // await api.post('/fiados', dados);
+      if (!clienteId) {
+        alert("Cliente não encontrado na URL.");
+        setLoading(false);
+        return;
+      }
+
+      await axios.post(
+        `${import.meta.env.VITE_API_BASE_URL}${withCliente(
+          clienteId,
+          `/fiados/create/${compradorId}`,
+        )}`,
+        {
+          descricao: dados.descricao,
+          valor: valorNumerico,
+        },
+      );
 
       alert("Fiado registrado!");
+      onSuccess?.();
       onClose();
     } catch (error) {
       console.log(error);

@@ -7,6 +7,7 @@ import {
 } from "@phosphor-icons/react"; // Adicione X para fechar
 import { Link } from "react-router-dom";
 import logo from "../assets/MeuCaixaComFundo.png";
+import { useCliente } from "../hooks/useCliente";
 
 type NavBarProps = {
   isOpen: boolean;
@@ -14,6 +15,9 @@ type NavBarProps = {
 };
 
 export function LeftNavBar({ isOpen, onClose }: NavBarProps) {
+  const { clienteId } = useCliente();
+  const base = clienteId ? `/c/${clienteId}` : "/c";
+
   return (
     <>
       {isOpen && (
@@ -38,7 +42,7 @@ export function LeftNavBar({ isOpen, onClose }: NavBarProps) {
           <div className="grid grid-cols-1 sm:grid-flow-col sm:grid-rows-4 gap-5 sm:gap-10 mt-10 md:mt-0">
             <Link
               className="row-span-1 flex items-center gap-5 hover:text-text-dark hover:font-bold hover:text-2xl transition-all duration-300"
-              to="/"
+              to={`${base}`}
               onClick={onClose}
             >
               <InvoiceIcon size={36} />
@@ -46,7 +50,7 @@ export function LeftNavBar({ isOpen, onClose }: NavBarProps) {
             </Link>
             <Link
               className="row-span-1 flex items-center gap-5 hover:text-text-dark hover:text-2xl hover:font-bold transition-all duration-300"
-              to="/entrada"
+              to={`${base}/entrada`}
               onClick={onClose}
             >
               <MoneyIcon size={36} />
@@ -54,7 +58,7 @@ export function LeftNavBar({ isOpen, onClose }: NavBarProps) {
             </Link>
             <Link
               className="row-span-1 flex items-center gap-5 hover:text-text-dark hover:text-2xl hover:font-bold transition-all duration-300"
-              to="/saida"
+              to={`${base}/saida`}
               onClick={onClose}
             >
               <HandCoinsIcon size={36} />
@@ -62,7 +66,7 @@ export function LeftNavBar({ isOpen, onClose }: NavBarProps) {
             </Link>
             <Link
               className="row-span-1 flex items-center gap-5 hover:text-text-dark hover:text-2xl hover:font-bold transition-all duration-300"
-              to="/fiado"
+              to={`${base}/fiado`}
               onClick={onClose}
             >
               <CreditCardIcon size={36} />
