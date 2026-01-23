@@ -4,6 +4,7 @@ import {
   InvoiceIcon,
   MoneyIcon,
   X,
+  BookOpen,
 } from "@phosphor-icons/react"; // Adicione X para fechar
 import { Link } from "react-router-dom";
 import logo from "../assets/MeuCaixaComFundo.png";
@@ -39,7 +40,7 @@ export function LeftNavBar({ isOpen, onClose }: NavBarProps) {
           >
             <X size={24} />
           </button>
-          <div className="grid grid-cols-1 sm:grid-flow-col sm:grid-rows-4 gap-5 sm:gap-10 mt-10 md:mt-0">
+          <div className="grid grid-cols-1 sm:grid-flow-col sm:grid-rows-5 gap-5 sm:gap-10 mt-10 md:mt-0">
             <Link
               className="row-span-1 flex items-center gap-5 hover:text-text-dark hover:font-bold hover:text-2xl transition-all duration-300"
               to={`${base}`}
@@ -71,6 +72,14 @@ export function LeftNavBar({ isOpen, onClose }: NavBarProps) {
             >
               <CreditCardIcon size={36} />
               <span>Fiado</span>
+            </Link>
+            <Link
+              className="row-span-1 flex items-center gap-5 hover:text-text-dark hover:text-2xl hover:font-bold transition-all duration-300"
+              to={`${base}/documentacao`}
+              onClick={onClose}
+            >
+              <BookOpen size={36} />
+              <span>Ajuda</span>
             </Link>
           </div>
         </div>
