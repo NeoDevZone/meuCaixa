@@ -327,10 +327,10 @@ export function Documentacao() {
             Encontrou um problema ou tem dúvidas? Estamos aqui para ajudar!
           </p>
           <div className="bg-white bg-opacity-10 p-4 rounded-lg">
-            <p className="text-sm">
+            <p className="text-sm text-black">
               <strong>Canal de Atendimento:</strong> WhatsApp
             </p>
-            <p className="text-sm mt-2">
+            <p className="text-sm mt-2 text-black">
               Para agilizar o atendimento, informe: O que aconteceu, data/hora e
               prints se possível.
             </p>
