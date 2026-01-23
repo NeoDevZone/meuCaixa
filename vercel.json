@@ -1,65 +1,18 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "framework": "vite",
-  "devCommand": "vite",
   "installCommand": "npm install",
-  "env": {
-    "VITE_API_BASE_URL": {
-      "description": "URL da API backend (com /api no final)",
-      "type": "string"
-    }
-  },
-  "routes": [
+  "rewrites": [
     {
-      "src": "/health",
-      "status": 200,
-      "headers": {
-        "Content-Type": "application/json"
-      },
-      "handle": "filesystem"
-    },
-    {
-      "src": "/(.*\\.[^/]*)",
-      "dest": "/$1",
-      "headers": {
-        "Cache-Control": "max-age=31536000, immutable"
-      }
-    },
-    {
-      "src": "/.*",
-      "dest": "/index.html",
-      "status": 200
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ],
   "headers": [
     {
-      "source": "/",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=3600, must-revalidate"
-        },
-        {
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
-        },
-        {
-          "key": "X-Frame-Options",
-          "value": "SAMEORIGIN"
-        },
-        {
-          "key": "X-XSS-Protection",
-          "value": "1; mode=block"
-        },
-        {
-          "key": "Referrer-Policy",
-          "value": "strict-origin-when-cross-origin"
-        }
-      ]
-    },
-    {
-      "source": "/(assets|public)/(.*)",
+      "source": "/(.*\\.[^/]*)",
       "headers": [
         {
           "key": "Cache-Control",
@@ -68,11 +21,5 @@
       ]
     }
   ],
-  "functions": {
-    "api/**": {
-      "memory": 1024,
-      "maxDuration": 30,
-      "includeFiles": "src/**"
-    }
-  }
+  "trailingSlash": false
 }
