@@ -16,19 +16,34 @@ export function Documentacao() {
 
   return (
     <Base>
-      <div className="max-w-4xl mx-auto px-4 py-10 sm:py-20">
+      <div className="max-w-4xl mx-auto px-4 py-10 sm:py-20 space-y-8">
         {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl sm:text-5xl font-bold text-text-dark mb-4">
+        <div className="text-center mb-6 bg-linear-to-r from-secondary via-purple-700 to-indigo-700 text-white rounded-2xl px-6 py-10 shadow-xl">
+          <p className="text-xs uppercase tracking-[0.2em] font-semibold text-white/80">
+            Guia completo + confiança de marca
+          </p>
+          <h1 className="text-4xl sm:text-5xl font-bold text-white mt-2 mb-3">
             📊 Meu Caixa
           </h1>
-          <p className="text-lg text-gray-600">
-            Documentação Completa - Guia do Usuário
+          <p className="text-lg sm:text-xl text-white/90 max-w-3xl mx-auto">
+            Controle financeiro em tempo real com acesso protegido, clareza de
+            dados e suporte humano.
           </p>
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mt-4">
+            <span className="px-3 py-1 text-sm rounded-full bg-white/10 border border-white/20 backdrop-blur">
+              Login seguro e verificado
+            </span>
+            <span className="px-3 py-1 text-sm rounded-full bg-white/10 border border-white/20 backdrop-blur">
+              Mobile-first
+            </span>
+            <span className="px-3 py-1 text-sm rounded-full bg-white/10 border border-white/20 backdrop-blur">
+              Suporte rápido por pessoas
+            </span>
+          </div>
         </div>
 
         {/* Visão Geral */}
-        <section className="mb-8 bg-white rounded-lg shadow-sm p-6 border border-gray-100">
+        <section className="bg-white rounded-lg shadow-md p-6 border border-gray-100">
           <div className="flex items-center justify-between cursor-pointer">
             <h2 className="text-2xl font-bold text-text-dark flex items-center gap-2">
               🎯 Visão Geral
@@ -45,18 +60,19 @@ export function Documentacao() {
               <p>
                 O <strong>Meu Caixa</strong> é um sistema simples, rápido e
                 confiável para{" "}
-                <strong>controle financeiro de pequenos negócios</strong>.
+                <strong>controle financeiro de pequenos negócios</strong>
+                com foco em segurança e clareza.
               </p>
               <div className="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
                 <h3 className="font-bold text-blue-900 mb-2">
-                  ✅ Principais Benefícios:
+                  ✅ Promessas da Marca:
                 </h3>
                 <ul className="space-y-1 text-blue-900 text-sm">
                   <li>✓ Controle total do caixa em tempo real</li>
-                  <li>✓ Registro rápido de entradas e saídas</li>
-                  <li>✓ Controle de fiado com histórico completo</li>
-                  <li>✓ Resumo mensal automático</li>
-                  <li>✓ Acesso de qualquer lugar</li>
+                  <li>✓ Login seguro e acesso autorizado</li>
+                  <li>✓ Fiado com histórico e cobrança clara</li>
+                  <li>✓ Resumo mensal que evita surpresas</li>
+                  <li>✓ Suporte humano, sem robôs</li>
                 </ul>
               </div>
             </div>
@@ -64,7 +80,7 @@ export function Documentacao() {
         </section>
 
         {/* Como Começar */}
-        <section className="mb-8 bg-white rounded-lg shadow-sm p-6 border border-gray-100">
+        <section className="bg-white rounded-lg shadow-md p-6 border border-gray-100">
           <div
             className="flex items-center justify-between cursor-pointer"
             onClick={() => toggleSection("start")}
@@ -82,21 +98,24 @@ export function Documentacao() {
           {expandedSections["start"] && (
             <div className="mt-4 text-gray-700 space-y-4">
               <div>
-                <p className="font-bold text-lg mb-1">1️⃣ Acesso ao Sistema</p>
+                <p className="font-bold text-lg mb-1">1️⃣ Login Seguro</p>
                 <p>
-                  Você recebeu um <strong>link exclusivo</strong> de acesso ao
-                  seu sistema. Esse link identifica automaticamente seu negócio
-                  — não é necessário login com senha.
+                  Entre com <strong>email e senha</strong>. Mantemos sua sessão
+                  protegida para evitar acessos indevidos.
+                </p>
+                <p className="text-sm text-gray-500">
+                  Dica: use sempre o domínio oficial e mantenha o navegador
+                  atualizado.
                 </p>
               </div>
               <div>
                 <p className="font-bold text-lg mb-1">
-                  2️⃣ Identificação Automática
+                  2️⃣ Reconhecimento do Cliente
                 </p>
                 <p>
-                  Ao acessar o link, o sistema reconhece automaticamente sua
-                  conta e carrega apenas{" "}
-                  <strong>os dados do seu negócio</strong>.
+                  Depois do login, carregamos somente{" "}
+                  <strong>os dados do seu negócio</strong> e mantemos o acesso
+                  ativo enquanto você estiver conectado.
                 </p>
               </div>
               <div>
@@ -122,7 +141,7 @@ export function Documentacao() {
         </section>
 
         {/* Funcionalidades */}
-        <section className="mb-8 bg-white rounded-lg shadow-sm p-6 border border-gray-100">
+        <section className="bg-white rounded-lg shadow-md p-6 border border-gray-100">
           <div
             className="flex items-center justify-between cursor-pointer"
             onClick={() => toggleSection("features")}
@@ -139,16 +158,15 @@ export function Documentacao() {
           </div>
           {expandedSections["features"] && (
             <div className="mt-4 text-gray-700 space-y-4">
-              <div className="bg-purple-50 p-4 rounded-lg">
+              <div className="bg-purple-50 p-4 rounded-lg border-l-4 border-purple-500">
                 <h3 className="font-bold text-purple-900 mb-2">🏠 Extrato</h3>
                 <p className="text-purple-900 text-sm">
-                  Mostra um resumo claro das finanças do período selecionado:
-                  saldo do mês, total de entradas, total de saídas e histórico
-                  de transações.
+                  Resumo claro por período: saldo do mês, total de entradas,
+                  total de saídas e histórico de transações.
                 </p>
               </div>
 
-              <div className="bg-green-50 p-4 rounded-lg">
+              <div className="bg-green-50 p-4 rounded-lg border-l-4 border-green-500">
                 <h3 className="font-bold text-green-900 mb-2">📥 Entrada</h3>
                 <p className="text-green-900 text-sm mb-2">
                   Utilize esta aba sempre que{" "}
@@ -164,7 +182,7 @@ export function Documentacao() {
                 </div>
               </div>
 
-              <div className="bg-orange-50 p-4 rounded-lg">
+              <div className="bg-orange-50 p-4 rounded-lg border-l-4 border-orange-500">
                 <h3 className="font-bold text-orange-900 mb-2">📤 Saída</h3>
                 <p className="text-orange-900 text-sm mb-2">
                   Aqui você registra tudo que <strong>sai do caixa</strong>.
@@ -179,10 +197,10 @@ export function Documentacao() {
                 </div>
               </div>
 
-              <div className="bg-blue-50 p-4 rounded-lg">
+              <div className="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
                 <h3 className="font-bold text-blue-900 mb-2">💳 Fiado</h3>
                 <p className="text-blue-900 text-sm mb-2">
-                  O <strong>Fiado</strong> permite controlar vendas a prazo com
+                  O <strong>Fiado</strong> controla vendas a prazo com
                   segurança.
                 </p>
                 <div className="text-blue-900 text-sm space-y-1">
@@ -201,7 +219,7 @@ export function Documentacao() {
         </section>
 
         {/* Planos */}
-        <section className="mb-8 bg-white rounded-lg shadow-sm p-6 border border-gray-100">
+        <section className="bg-white rounded-lg shadow-md p-6 border border-gray-100">
           <div
             className="flex items-center justify-between cursor-pointer"
             onClick={() => toggleSection("plans")}
@@ -265,7 +283,7 @@ export function Documentacao() {
         </section>
 
         {/* FAQ */}
-        <section className="mb-8 bg-white rounded-lg shadow-sm p-6 border border-gray-100">
+        <section className="bg-white rounded-lg shadow-md p-6 border border-gray-100">
           <div
             className="flex items-center justify-between cursor-pointer"
             onClick={() => toggleSection("faq")}
@@ -287,7 +305,8 @@ export function Documentacao() {
                   Meus dados estão seguros?
                 </p>
                 <p className="text-sm mt-1">
-                  Sim. Cada cliente possui acesso isolado e seguro ao sistema.
+                  Sim. Usamos sessão protegida, acesso restrito e dados
+                  separados por cliente.
                 </p>
               </div>
               <div className="border-l-4 border-gray-300 pl-4">
@@ -319,7 +338,7 @@ export function Documentacao() {
         </section>
 
         {/* Suporte */}
-        <section className="bg-linear-to-r from-secondary to-purple-700 rounded-lg shadow-sm p-6 text-white">
+        <section className="bg-linear-to-r from-secondary to-purple-700 rounded-lg shadow-md p-6 text-white">
           <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
             📞 Suporte e Atendimento
           </h2>
@@ -328,7 +347,7 @@ export function Documentacao() {
           </p>
           <div className="bg-white bg-opacity-10 p-4 rounded-lg">
             <p className="text-sm text-black">
-              <strong>Canal de Atendimento:</strong> WhatsApp
+              <strong>Canal de Atendimento:</strong> WhatsApp (75) 9 9219-7406
             </p>
             <p className="text-sm mt-2 text-black">
               Para agilizar o atendimento, informe: O que aconteceu, data/hora e
@@ -338,9 +357,9 @@ export function Documentacao() {
         </section>
 
         {/* Footer */}
-        <div className="text-center mt-12 text-gray-500 text-sm">
+        <div className="text-center text-gray-500 text-sm pt-4">
           <p>Última atualização: Janeiro de 2026</p>
-          <p>Versão: 1.0.0 — MVP</p>
+          <p>Versão: 1.1.0 — MVP</p>
         </div>
       </div>
     </Base>

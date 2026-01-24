@@ -16,21 +16,52 @@ export function DocumentacaoPublica() {
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-slate-50 to-slate-100">
-      {/* Header com logo */}
-      <div className="bg-secondary text-white py-8 sm:py-12">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <h1 className="text-4xl sm:text-5xl font-bold mb-2">📊 Meu Caixa</h1>
-          <p className="text-lg opacity-90">
-            Documentação Completa - Guia do Usuário
+    <div className="min-h-screen bg-linear-to-br from-slate-950 via-slate-900 to-black text-slate-100">
+      {/* Header com marca e prova social */}
+      <div className="bg-linear-to-r from-secondary via-purple-700 to-indigo-700 text-white py-10 sm:py-14 shadow-xl">
+        <div className="max-w-4xl mx-auto px-4 text-center space-y-4">
+          <p className="text-xs uppercase tracking-[0.2em] font-semibold text-white/80">
+            Guia rápido + confiança de marca
           </p>
+          <h1 className="text-4xl sm:text-5xl font-bold leading-tight">
+            📊 Meu Caixa
+          </h1>
+          <p className="text-lg sm:text-xl text-white/90 max-w-3xl mx-auto">
+            Controle total do caixa em tempo real, com acesso protegido e
+            suporte humano para negócios locais.
+          </p>
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
+            <span className="px-3 py-1 text-sm rounded-full bg-white/10 border border-white/20 backdrop-blur">
+              Login seguro e verificado
+            </span>
+            <span className="px-3 py-1 text-sm rounded-full bg-white/10 border border-white/20 backdrop-blur">
+              Mobile-first
+            </span>
+            <span className="px-3 py-1 text-sm rounded-full bg-white/10 border border-white/20 backdrop-blur">
+              Suporte rápido por pessoas
+            </span>
+          </div>
+          <div className="flex flex-wrap justify-center gap-3 sm:gap-4 pt-2">
+            <a
+              href="/login"
+              className="px-5 py-3 rounded-lg bg-white text-secondary font-semibold shadow-lg hover:-translate-y-0.5 hover:shadow-xl transition"
+            >
+              Entrar no sistema
+            </a>
+            <a
+              href="#suporte"
+              className="px-5 py-3 rounded-lg border border-white/40 text-white font-semibold hover:bg-white/10 transition"
+            >
+              Falar com o suporte
+            </a>
+          </div>
         </div>
       </div>
 
       {/* Conteúdo */}
-      <div className="max-w-4xl mx-auto px-4 py-10 sm:py-20">
+      <div className="max-w-4xl mx-auto px-4 py-12 sm:py-20 space-y-8">
         {/* Visão Geral */}
-        <section className="mb-8 bg-white rounded-lg shadow-md p-6 border border-gray-200">
+        <section className="bg-white/95 rounded-lg shadow-xl p-6 border border-white/10 text-slate-800">
           <div
             className="flex items-center justify-between cursor-pointer"
             onClick={() => toggleSection("overview")}
@@ -50,18 +81,19 @@ export function DocumentacaoPublica() {
               <p>
                 O <strong>Meu Caixa</strong> é um sistema simples, rápido e
                 confiável para{" "}
-                <strong>controle financeiro de pequenos negócios</strong>.
+                <strong>controle financeiro de pequenos negócios</strong>
+                com foco em segurança e clareza.
               </p>
               <div className="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
                 <h3 className="font-bold text-blue-900 mb-2">
-                  ✅ Principais Benefícios:
+                  ✅ Promessas da Marca:
                 </h3>
                 <ul className="space-y-1 text-blue-900 text-sm">
                   <li>✓ Controle total do caixa em tempo real</li>
-                  <li>✓ Registro rápido de entradas e saídas</li>
-                  <li>✓ Controle de fiado com histórico completo</li>
-                  <li>✓ Resumo mensal automático</li>
-                  <li>✓ Acesso de qualquer lugar</li>
+                  <li>✓ Login seguro e acesso autorizado</li>
+                  <li>✓ Fiado com histórico e cobrança clara</li>
+                  <li>✓ Resumo mensal que evita surpresas</li>
+                  <li>✓ Suporte humano, sem robôs</li>
                 </ul>
               </div>
             </div>
@@ -69,7 +101,7 @@ export function DocumentacaoPublica() {
         </section>
 
         {/* Como Começar */}
-        <section className="mb-8 bg-white rounded-lg shadow-md p-6 border border-gray-200">
+        <section className="bg-white/95 rounded-lg shadow-xl p-6 border border-white/10 text-slate-800">
           <div
             className="flex items-center justify-between cursor-pointer"
             onClick={() => toggleSection("start")}
@@ -87,21 +119,24 @@ export function DocumentacaoPublica() {
           {expandedSections["start"] && (
             <div className="mt-4 text-gray-700 space-y-4">
               <div>
-                <p className="font-bold text-lg mb-1">1️⃣ Acesso ao Sistema</p>
+                <p className="font-bold text-lg mb-1">1️⃣ Login Seguro</p>
                 <p>
-                  Você receberá um <strong>link exclusivo</strong> de acesso ao
-                  seu sistema. Esse link identifica automaticamente seu negócio
-                  — não é necessário login com senha.
+                  Acesse pelo <strong>seu email e senha</strong>. Mantemos sua
+                  sessão protegida para evitar acessos indevidos.
+                </p>
+                <p className="text-sm text-gray-500">
+                  Dica: use sempre o link oficial do Meu Caixa e mantenha o
+                  navegador atualizado.
                 </p>
               </div>
               <div>
                 <p className="font-bold text-lg mb-1">
-                  2️⃣ Identificação Automática
+                  2️⃣ Reconhecimento do Cliente
                 </p>
                 <p>
-                  Ao acessar o link, o sistema reconhece automaticamente sua
-                  conta e carrega apenas{" "}
-                  <strong>os dados do seu negócio</strong>.
+                  Após o login, carregamos somente{" "}
+                  <strong>os dados do seu negócio</strong> e mantemos o acesso
+                  ativo enquanto você estiver conectado.
                 </p>
               </div>
               <div>
@@ -130,7 +165,7 @@ export function DocumentacaoPublica() {
         </section>
 
         {/* Funcionalidades */}
-        <section className="mb-8 bg-white rounded-lg shadow-md p-6 border border-gray-200">
+        <section className="bg-white/95 rounded-lg shadow-xl p-6 border border-white/10 text-slate-800">
           <div
             className="flex items-center justify-between cursor-pointer"
             onClick={() => toggleSection("features")}
@@ -150,9 +185,8 @@ export function DocumentacaoPublica() {
               <div className="bg-purple-50 p-4 rounded-lg border-l-4 border-purple-500">
                 <h3 className="font-bold text-purple-900 mb-2">🏠 Extrato</h3>
                 <p className="text-purple-900 text-sm">
-                  Mostra um resumo claro das finanças do período selecionado:
-                  saldo do mês, total de entradas, total de saídas e histórico
-                  de transações.
+                  Resumo claro por período: saldo do mês, total de entradas,
+                  total de saídas e histórico de transações.
                 </p>
               </div>
 
@@ -190,7 +224,7 @@ export function DocumentacaoPublica() {
               <div className="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
                 <h3 className="font-bold text-blue-900 mb-2">💳 Fiado</h3>
                 <p className="text-blue-900 text-sm mb-2">
-                  O <strong>Fiado</strong> permite controlar vendas a prazo com
+                  O <strong>Fiado</strong> controla vendas a prazo com
                   segurança.
                 </p>
                 <div className="text-blue-900 text-sm space-y-1">
@@ -209,7 +243,7 @@ export function DocumentacaoPublica() {
         </section>
 
         {/* Planos */}
-        <section className="mb-8 bg-white rounded-lg shadow-md p-6 border border-gray-200">
+        <section className="bg-white/95 rounded-lg shadow-xl p-6 border border-white/10 text-slate-800">
           <div
             className="flex items-center justify-between cursor-pointer"
             onClick={() => toggleSection("plans")}
@@ -273,7 +307,7 @@ export function DocumentacaoPublica() {
         </section>
 
         {/* FAQ */}
-        <section className="mb-8 bg-white rounded-lg shadow-md p-6 border border-gray-200">
+        <section className="bg-white/95 rounded-lg shadow-xl p-6 border border-white/10 text-slate-800">
           <div
             className="flex items-center justify-between cursor-pointer"
             onClick={() => toggleSection("faq")}
@@ -295,7 +329,8 @@ export function DocumentacaoPublica() {
                   Meus dados estão seguros?
                 </p>
                 <p className="text-sm mt-1">
-                  Sim. Cada cliente possui acesso isolado e seguro ao sistema.
+                  Sim. Usamos sessão protegida, acesso restrito e dados
+                  separados por cliente.
                 </p>
               </div>
               <div className="border-l-4 border-gray-300 pl-4">
@@ -327,7 +362,10 @@ export function DocumentacaoPublica() {
         </section>
 
         {/* Suporte */}
-        <section className="bg-linear-to-r from-secondary to-purple-700 rounded-lg shadow-md p-6 text-white">
+        <section
+          id="suporte"
+          className="bg-linear-to-r from-secondary to-purple-700 rounded-lg shadow-xl p-6 text-white"
+        >
           <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
             📞 Suporte e Atendimento
           </h2>
@@ -346,9 +384,9 @@ export function DocumentacaoPublica() {
         </section>
 
         {/* Footer */}
-        <div className="text-center mt-12 text-gray-500 text-sm">
+        <div className="text-center text-gray-400 text-sm pt-4 pb-6">
           <p>Última atualização: Janeiro de 2026</p>
-          <p>Versão: 1.0.0 — MVP</p>
+          <p>Versão: 1.1.0 — MVP</p>
         </div>
       </div>
     </div>

@@ -2,7 +2,7 @@
 
 ## Bem-vindo ao Meu Caixa!
 
-O **Meu Caixa** é um sistema simples, rápido e confiável para  **controle financeiro de pequenos negócios** . Ele foi pensado para quem precisa registrar entradas, saídas e fiados  **sem complicação** , com visão clara do dinheiro que entra e sai.
+O **Meu Caixa** é um sistema simples, rápido e confiável para **controle financeiro de pequenos negócios** . Ele foi pensado para quem precisa registrar entradas, saídas e fiados **sem complicação** , com visão clara do dinheiro que entra e sai.
 
 Você não precisa entender de tecnologia. O sistema funciona direto no navegador, em celular ou computador.
 
@@ -27,34 +27,38 @@ O Meu Caixa centraliza todas as movimentações financeiras do seu negócio em u
 
 ### Principais Benefícios
 
-* ✅ **Controle total do caixa** em tempo real
-* ✅ **Registro rápido** de entradas e saídas
-* ✅ **Controle de fiado** com histórico completo
-* ✅ **Resumo mensal automático**
-* ✅ **Acesso de qualquer lugar**
+- ✅ **Controle total do caixa** em tempo real
+- ✅ **Registro rápido** de entradas e saídas
+- ✅ **Controle de fiado** com histórico completo
+- ✅ **Resumo mensal automático**
+- ✅ **Acesso de qualquer lugar**
 
 ---
 
 ## 🚀 Como Começar
 
-### 1️⃣ Acesso ao Sistema
+### 1️⃣ Acesso ao Sistema (Login Seguro)
 
-Você receberá um **link exclusivo** de acesso ao seu sistema. Esse link identifica automaticamente seu negócio — não é necessário login com senha.
+Agora o acesso é feito com **email e senha** (token seguro em cookie). Basta abrir o link do sistema e fazer login:
 
-> ⚠️ Importante: guarde seu link com segurança.
+- **Email**: cadastrado na criação da sua conta
+- **Senha**: definida no cadastro (pode ser alterada em Alterar Senha)
+- **Segurança**: token httpOnly + SameSite=None; Secure (recomendado usar o navegador atualizado)
+
+> ⚠️ Guarde suas credenciais com segurança. Se perder o acesso, peça um reset de senha ao suporte.
 
 ### 2️⃣ Identificação Automática
 
-Ao acessar o link, o sistema reconhece automaticamente sua conta e carrega apenas  **os dados do seu negócio** .
+Após o login, o sistema reconhece automaticamente sua conta e carrega apenas **os dados do seu negócio**.
 
 ### 3️⃣ Menu Principal
 
 No topo da tela, você encontrará:
 
-* **Home** — Visão geral do caixa
-* **Entrada** — Registrar dinheiro que entrou
-* **Saída** — Registrar despesas
-* **Fiado** — Controle de vendas a crédito
+- **Home** — Visão geral do caixa
+- **Entrada** — Registrar dinheiro que entrou
+- **Saída** — Registrar despesas
+- **Fiado** — Controle de vendas a crédito
 
 ---
 
@@ -62,33 +66,39 @@ No topo da tela, você encontrará:
 
 ### 🏠 Home — Painel de Controle
 
+#### Como funciona a segurança dos dados
+
+- **Cookies seguros**: o acesso às rotas acontece com token em cookie httpOnly (não exposto no navegador).
+- **Domínios autorizados**: só o domínio oficial do Meu Caixa pode chamar a API.
+- **Logout limpo**: botão de sair remove o identificador local e invalida o acesso.
+
 O **Home** mostra um resumo claro das finanças do período selecionado:
 
-* **Saldo do mês**
-* **Total de Entradas**
-* **Total de Saídas**
-* **Histórico de Transações**
+- **Saldo do mês**
+- **Total de Entradas**
+- **Total de Saídas**
+- **Histórico de Transações**
 
 #### Como usar
 
-* Use os botões para navegar entre meses
-* Clique em uma transação para ver detalhes
-* O saldo é atualizado automaticamente
+- Use os botões para navegar entre meses
+- Clique em uma transação para ver detalhes
+- O saldo é atualizado automaticamente
 
 ---
 
 ### 📥 Entrada — Registrar Receitas
 
-Utilize esta aba sempre que  **dinheiro entrar no caixa** .
+Utilize esta aba sempre que **dinheiro entrar no caixa** .
 
 **Campos:**
 
-| Campo       | Descrição                          |
-| ----------- | ------------------------------------ |
-| Descrição | Origem do dinheiro                   |
-| Valor       | Valor recebido                       |
-| Data        | Data da entrada                      |
-| Método     | Dinheiro, PIX, Débito, Crédito etc |
+| Campo     | Descrição                          |
+| --------- | ---------------------------------- |
+| Descrição | Origem do dinheiro                 |
+| Valor     | Valor recebido                     |
+| Data      | Data da entrada                    |
+| Método    | Dinheiro, PIX, Débito, Crédito etc |
 
 📌 Exemplo:
 Venda de produto — R$ 100 — Dinheiro
@@ -97,16 +107,16 @@ Venda de produto — R$ 100 — Dinheiro
 
 ### 📤 Saída — Registrar Despesas
 
-Aqui você registra tudo que  **sai do caixa** .
+Aqui você registra tudo que **sai do caixa** .
 
 **Campos:**
 
-| Campo       | Descrição        |
-| ----------- | ------------------ |
+| Campo     | Descrição          |
+| --------- | ------------------ |
 | Descrição | Motivo do gasto    |
-| Valor       | Valor pago         |
-| Data        | Data da despesa    |
-| Método     | Forma de pagamento |
+| Valor     | Valor pago         |
+| Data      | Data da despesa    |
+| Método    | Forma de pagamento |
 
 📌 Exemplo:
 Compra de mercadoria — R$ 30 — PIX
@@ -119,7 +129,7 @@ O **Fiado** permite controlar vendas a prazo com segurança.
 
 #### Registrar Fiado
 
-| Campo   | Descrição     |
+| Campo   | Descrição       |
 | ------- | --------------- |
 | Cliente | Nome do cliente |
 | Valor   | Valor devido    |
@@ -127,12 +137,12 @@ O **Fiado** permite controlar vendas a prazo com segurança.
 
 #### Funcionalidades
 
-* Lista de clientes devedores
-* Histórico completo de fiados
-* Marcar como pago
-* Remover registro
+- Lista de clientes devedores
+- Histórico completo de fiados
+- Marcar como pago
+- Remover registro
 
-✅ Ao marcar como pago, o valor entra automaticamente como  **Entrada** .
+✅ Ao marcar como pago, o valor entra automaticamente como **Entrada** .
 
 ---
 
@@ -152,7 +162,7 @@ O **Fiado** permite controlar vendas a prazo com segurança.
 
 ### Consultar Meses Anteriores
 
-* Use os botões no **Home** para navegar entre meses
+- Use os botões no **Home** para navegar entre meses
 
 ---
 
@@ -166,16 +176,16 @@ Ideal para quem quer controle financeiro sem depender de suporte constante.
 
 **Inclui:**
 
-* Acesso completo ao sistema
-* Correções de bugs
-* Backups automáticos
-* Atualizações contínuas
-* Suporte via WhatsApp
+- Acesso completo ao sistema
+- Correções de bugs
+- Backups automáticos
+- Atualizações contínuas
+- Suporte via WhatsApp
 
 **Suporte:**
 
-* Prazo de resposta: até **24h**
-* Limite recomendado: até **20 contatos semanais**
+- Prazo de resposta: até **24h**
+- Limite recomendado: até **20 contatos semanais**
 
 ---
 
@@ -185,14 +195,14 @@ Para quem quer mais agilidade e proximidade.
 
 **Inclui tudo do Básico +**
 
-* Prioridade no suporte
-* Ajuda no uso do sistema
-* Pequenos ajustes sob demanda
-* Participação ativa nas melhorias
+- Prioridade no suporte
+- Ajuda no uso do sistema
+- Pequenos ajustes sob demanda
+- Participação ativa nas melhorias
 
 **Suporte:**
 
-* Prazo de resposta: até **12h**
+- Prazo de resposta: até **12h**
 
 ## 💳 Valor de Implantação
 
@@ -214,8 +224,8 @@ A implantação do **Meu Caixa** é cobrada **uma única vez** e inclui toda a c
 
 ### 🔔 Atualizações Especiais
 
-* Atualizações normais estão incluídas em todos os planos
-* **Grandes atualizações** podem gerar reajuste ou novo plano, sempre comunicado previamente
+- Atualizações normais estão incluídas em todos os planos
+- **Grandes atualizações** podem gerar reajuste ou novo plano, sempre comunicado previamente
 
 ---
 
@@ -241,9 +251,9 @@ O suporte é feito via WhatsApp.
 
 Para agilizar o atendimento, informe:
 
-* O que aconteceu
-* Data e horário
-* Prints, se possível
+- O que aconteceu
+- Data e horário
+- Prints, se possível
 
 ---
 
@@ -261,5 +271,5 @@ Use diariamente, mantenha os registros atualizados e aproveite o sistema ao máx
 
 ---
 
-*Última atualização: Janeiro de 2026*
-*Versão: 1.0.0 — MVP*
+_Última atualização: Janeiro de 2026_
+_Versão: 1.0.0 — MVP_

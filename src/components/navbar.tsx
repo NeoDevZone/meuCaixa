@@ -9,7 +9,7 @@ import {
   LockKey,
 } from "@phosphor-icons/react"; // Adicione X para fechar
 import { Link } from "react-router-dom";
-import logo from "../assets/MeuCaixaComFundo.png";
+import logo from "../assets/MeuCaixa.png";
 import { useCliente } from "../hooks/useCliente";
 
 type NavBarProps = {
