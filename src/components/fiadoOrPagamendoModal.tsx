@@ -3,12 +3,11 @@ import { XCircleIcon } from "@phosphor-icons/react";
 import { FormPagamentoModal } from "./formPagamentoModal";
 import { FormFiadoModal } from "./formFiadoModal";
 import { useRef, useState } from "react";
-import axios from "axios";
 import type {
   FormFiadoSchema,
   FormPagamentoSchema,
 } from "../schemas/formFiadoSchema";
-import { withCliente } from "../services/api";
+import { api, withCliente } from "../services/api";
 import { useCliente } from "../hooks/useCliente";
 
 interface ModalProps {
@@ -54,11 +53,8 @@ export function FiadoOrPagamentoModal({
         return;
       }
 
-      await axios.post(
-        `${import.meta.env.VITE_API_BASE_URL}${withCliente(
-          clienteId,
-          `/fiados/pagamento/${compradorId}`,
-        )}`,
+      await api.post(
+        withCliente(clienteId, `/fiados/pagamento/${compradorId}`),
         {
           metodo: metodoNormalizado,
           valor: valorNumerico,
@@ -87,16 +83,10 @@ export function FiadoOrPagamentoModal({
         return;
       }
 
-      await axios.post(
-        `${import.meta.env.VITE_API_BASE_URL}${withCliente(
-          clienteId,
-          `/fiados/create/${compradorId}`,
-        )}`,
-        {
-          descricao: dados.descricao,
-          valor: valorNumerico,
-        },
-      );
+      await api.post(withCliente(clienteId, `/fiados/create/${compradorId}`), {
+        descricao: dados.descricao,
+        valor: valorNumerico,
+      });
 
       alert("Fiado registrado!");
       onSuccess?.();

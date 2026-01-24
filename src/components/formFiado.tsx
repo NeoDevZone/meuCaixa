@@ -2,9 +2,8 @@ import { useState } from "react";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
 import { useCliente } from "../hooks/useCliente";
-import { withCliente } from "../services/api";
+import { api, withCliente } from "../services/api";
 import {
   formPrimeiroFiadoSchema,
   type FormPrimeiroFiadoSchema,
@@ -52,14 +51,11 @@ export function FormFiado() {
             return;
           }
 
-          await axios.post(
-            `${import.meta.env.VITE_API_BASE_URL}${withCliente(clienteId, "/fiados/create")}`,
-            {
-              descricao: data.descricao,
-              valor: valorNumerico,
-              nomeComprador: data.comprador,
-            },
-          );
+          await api.post(withCliente(clienteId, "/fiados/create"), {
+            descricao: data.descricao,
+            valor: valorNumerico,
+            nomeComprador: data.comprador,
+          });
 
           alert("Fiado cadastrado com sucesso!");
           setValorFormatado("");

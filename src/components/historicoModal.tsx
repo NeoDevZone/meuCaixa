@@ -1,10 +1,9 @@
 // src/components/fiadoOrPagamendoModal.tsx
 import { XCircleIcon } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { HistoricoRow } from "./historicoRow";
 import { useCliente } from "../hooks/useCliente";
-import { withCliente } from "../services/api";
+import { api, withCliente } from "../services/api";
 
 interface ModalProps {
   isOpen: boolean;
@@ -53,11 +52,8 @@ export function HistoricoModal({
 
       setLoading(true);
       try {
-        const response = await axios.get<HistoricoItem[]>(
-          `${import.meta.env.VITE_API_BASE_URL}${withCliente(
-            clienteId,
-            `/fiados/comprador/${compradorId}`,
-          )}`,
+        const response = await api.get<HistoricoItem[]>(
+          withCliente(clienteId, `/fiados/comprador/${compradorId}`),
         );
         setHistorico(response.data);
       } catch (error) {
@@ -83,12 +79,7 @@ export function HistoricoModal({
 
     setDeletingId(id);
     try {
-      await axios.delete(
-        `${import.meta.env.VITE_API_BASE_URL}${withCliente(
-          clienteId,
-          `/fiados/delete/${id}`,
-        )}`,
-      );
+      await api.delete(withCliente(clienteId, `/fiados/delete/${id}`));
       setHistorico((prev) => prev.filter((item) => item._id !== id));
     } catch (error) {
       console.error("Erro ao deletar transação:", error);

@@ -1,8 +1,7 @@
 import { XCircleIcon } from "@phosphor-icons/react";
-import axios from "axios";
 import { useState } from "react";
 import { useCliente } from "../hooks/useCliente";
-import { withCliente } from "../services/api";
+import { api, withCliente } from "../services/api";
 
 interface ModalProps {
   isOpen: boolean;
@@ -31,19 +30,9 @@ export function DeleteRowModal({
     setIsDeleting(true);
     try {
       if (movimento === "Saida") {
-        await axios.delete(
-          `${import.meta.env.VITE_API_BASE_URL}${withCliente(
-            clienteId,
-            `/saidas/delete/${id}`,
-          )}`,
-        );
+        await api.delete(withCliente(clienteId, `/saidas/delete/${id}`));
       } else if (movimento === "Entrada") {
-        await axios.delete(
-          `${import.meta.env.VITE_API_BASE_URL}${withCliente(
-            clienteId,
-            `/entradas/delete/${id}`,
-          )}`,
-        );
+        await api.delete(withCliente(clienteId, `/entradas/delete/${id}`));
       }
       alert("Transação deletada!");
       onClose();

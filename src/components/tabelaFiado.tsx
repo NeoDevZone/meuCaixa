@@ -1,8 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
-import axios from "axios";
 import { FiadoRow } from "./fiadoRow";
 import { useCliente } from "../hooks/useCliente";
-import { withCliente } from "../services/api";
+import { api, withCliente } from "../services/api";
 
 type Comprador = {
   _id: string;
@@ -25,8 +24,8 @@ export function TabelaFiado() {
     try {
       if (!clienteId) return;
 
-      const response = await axios.get<Comprador[]>(
-        `${import.meta.env.VITE_API_BASE_URL}${withCliente(clienteId, "/compradores")}`,
+      const response = await api.get<Comprador[]>(
+        withCliente(clienteId, "/compradores"),
       );
       setCompradores(response.data);
     } catch (error) {
