@@ -7,13 +7,27 @@ import { Documentacao } from "./pages/Documentacao";
 import { DocumentacaoPublica } from "./pages/DocumentacaoPublica";
 import { ClientShell } from "./components/clientShell";
 import { ErrorState } from "./components/errorState";
+import { Login } from "./pages/Login";
+import { ProtectedRoute } from "./components/ProtectedRoute";
+import { useAuthCheck } from "./hooks/useAuthCheck";
 
 export function App() {
+  // Verificar autenticação ao inicializar
+  useAuthCheck();
+
   return (
     <div>
       <Routes>
+        <Route path="/login" element={<Login />} />
         <Route path="/documentacao" element={<DocumentacaoPublica />} />
-        <Route path="/c/:clienteId" element={<ClientShell />}>
+        <Route
+          path="/c/:clienteId"
+          element={
+            <ProtectedRoute>
+              <ClientShell />
+            </ProtectedRoute>
+          }
+        >
           <Route index element={<Home />} />
           <Route path="entrada" element={<Entrada />} />
           <Route path="saida" element={<Saida />} />

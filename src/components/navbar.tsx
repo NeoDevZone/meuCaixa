@@ -5,6 +5,7 @@ import {
   MoneyIcon,
   X,
   BookOpen,
+  SignOut,
 } from "@phosphor-icons/react"; // Adicione X para fechar
 import { Link } from "react-router-dom";
 import logo from "../assets/MeuCaixaComFundo.png";
@@ -18,6 +19,11 @@ type NavBarProps = {
 export function LeftNavBar({ isOpen, onClose }: NavBarProps) {
   const { clienteId } = useCliente();
   const base = clienteId ? `/c/${clienteId}` : "/c";
+
+  const handleLogout = () => {
+    localStorage.removeItem("clienteId");
+    window.location.href = "/login";
+  };
 
   return (
     <>
@@ -40,7 +46,7 @@ export function LeftNavBar({ isOpen, onClose }: NavBarProps) {
           >
             <X size={24} />
           </button>
-          <div className="grid grid-cols-1 sm:grid-flow-col sm:grid-rows-5 gap-5 sm:gap-10 mt-10 md:mt-0">
+          <div className="grid grid-cols-1 sm:grid-flow-col sm:grid-rows-6 gap-5 sm:gap-10 mt-10 md:mt-0">
             <Link
               className="row-span-1 flex items-center gap-5 hover:text-text-dark hover:font-bold hover:text-2xl transition-all duration-300"
               to={`${base}`}
@@ -81,6 +87,13 @@ export function LeftNavBar({ isOpen, onClose }: NavBarProps) {
               <BookOpen size={36} />
               <span>Ajuda</span>
             </Link>
+            <button
+              className="cursor-pointer row-span-1 flex items-center gap-5 hover:text-text-dark hover:text-2xl hover:font-bold transition-all duration-300 text-left"
+              onClick={handleLogout}
+            >
+              <SignOut size={36} />
+              <span>Sair</span>
+            </button>
           </div>
         </div>
       </div>
