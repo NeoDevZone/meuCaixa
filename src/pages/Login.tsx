@@ -22,21 +22,42 @@ export function Login() {
       });
 
       // Token é automaticamente salvo em cookie httpOnly pelo backend
-      // Decodificar o token para pegar o clienteId (ou buscar do backend)
       const { token } = response.data;
 
-      // Decodificar o payload do JWT (base64)
-      const payload = JSON.parse(atob(token.split(".")[1]));
-      const clienteId = payload.clienteId;
+      if (!token) {
+        setError("Erro: token não recebido do servidor");
+        return;
+      }
 
-      // Salvar clienteId no localStorage para usar nas rotas
-      localStorage.setItem("clienteId", clienteId);
+      try {
+        // Decodificar o payload do JWT (base64)
+        const parts = token.split(".");
+        if (parts.length !== 3) {
+          setError("Erro: token JWT inválido");
+          return;
+        }
 
-      navigate(`/c/${clienteId}`);
+        const payload = JSON.parse(atob(parts[1]));
+        const clienteId = payload.clienteId;
+
+        if (!clienteId) {
+          setError("Erro: clienteId não encontrado no token");
+          return;
+        }
+
+        // Salvar clienteId no localStorage para usar nas rotas
+        localStorage.setItem("clienteId", clienteId);
+
+        navigate(`/c/${clienteId}`);
+      } catch (decodeError) {
+        console.error("Erro ao decodificar token:", decodeError);
+        setError("Erro ao processar token de autenticação");
+      }
     } catch (err) {
+      console.error("Erro de login:", err);
       const errorMessage =
         (err as { response?: { data?: { error?: string } } }).response?.data
-          ?.error || "Erro ao fazer login. Tente novamente.";
+          ?.error || "Erro ao fazer login. Verifique suas credenciais.";
       setError(errorMessage);
     } finally {
       setLoading(false);

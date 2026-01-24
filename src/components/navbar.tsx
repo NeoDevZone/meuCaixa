@@ -6,6 +6,7 @@ import {
   X,
   BookOpen,
   SignOut,
+  LockKey,
 } from "@phosphor-icons/react"; // Adicione X para fechar
 import { Link } from "react-router-dom";
 import logo from "../assets/MeuCaixaComFundo.png";
@@ -34,7 +35,7 @@ export function LeftNavBar({ isOpen, onClose }: NavBarProps) {
         ></div>
       )}
       <div
-        className={`fixed inset-y-0 left-0 z-50 w-full max-w-60 bg-secondary text-border-detail min-h-screen flex flex-col transform ${isOpen ? "translate-x-0" : "-translate-x-full"} transition-transform duration-300`}
+        className={`fixed inset-y-0 left-0 z-50 w-full max-w-80 bg-secondary text-border-detail min-h-screen flex flex-col transform ${isOpen ? "translate-x-0" : "-translate-x-full"} transition-transform duration-300`}
       >
         <div className="w-full flex justify-center p-4">
           <img src={logo} className="max-w-20 sm:max-w-24 rounded-2xl" />
@@ -46,7 +47,7 @@ export function LeftNavBar({ isOpen, onClose }: NavBarProps) {
           >
             <X size={24} />
           </button>
-          <div className="grid grid-cols-1 sm:grid-flow-col sm:grid-rows-6 gap-5 sm:gap-10 mt-10 md:mt-0">
+          <div className="grid grid-cols-1 sm:grid-flow-col sm:grid-rows-7 gap-5 sm:gap-10 mt-10 md:mt-0">
             <Link
               className="row-span-1 flex items-center gap-5 hover:text-text-dark hover:font-bold hover:text-2xl transition-all duration-300"
               to={`${base}`}
@@ -87,8 +88,16 @@ export function LeftNavBar({ isOpen, onClose }: NavBarProps) {
               <BookOpen size={36} />
               <span>Ajuda</span>
             </Link>
+            <Link
+              className="row-span-1 flex items-center gap-5 hover:text-text-dark hover:text-2xl hover:font-bold transition-all duration-300"
+              to={`${base}/alterar-senha`}
+              onClick={onClose}
+            >
+              <LockKey size={36} />
+              <span>Alterar Senha</span>
+            </Link>
             <button
-              className="cursor-pointer row-span-1 flex items-center gap-5 hover:text-text-dark hover:text-2xl hover:font-bold transition-all duration-300 text-left"
+              className="cursor-pointer row-span-1 flex items-center gap-5 hover:text-red-500 hover:font-bold transition-all duration-300 text-left"
               onClick={handleLogout}
             >
               <SignOut size={36} />

@@ -5,6 +5,7 @@ import { Saida } from "./pages/Saida";
 import { Fiado } from "./pages/Fiado";
 import { Documentacao } from "./pages/Documentacao";
 import { DocumentacaoPublica } from "./pages/DocumentacaoPublica";
+import { ChangePassword } from "./pages/ChangePassword";
 import { ClientShell } from "./components/clientShell";
 import { ErrorState } from "./components/errorState";
 import { Login } from "./pages/Login";
@@ -33,6 +34,7 @@ export function App() {
           <Route path="saida" element={<Saida />} />
           <Route path="fiado" element={<Fiado />} />
           <Route path="documentacao" element={<Documentacao />} />
+          <Route path="alterar-senha" element={<ChangePassword />} />
         </Route>
         <Route
           path="*"
