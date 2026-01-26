@@ -21,6 +21,7 @@ export function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/documentacao" element={<DocumentacaoPublica />} />
+        <Route path="/" element={<DocumentacaoPublica />} />
         <Route
           path="/c/:clienteId"
           element={
