@@ -1,5 +1,7 @@
 import { CaretUp, CheckCircle } from "@phosphor-icons/react";
 import { useState } from "react";
+import logoMeuCaixa from "../assets/LogoMeuCaixaA.png";
+import logoNeoDevZone from "../assets/LogoNeoDevZone.png";
 
 export function Documentacao() {
   const [expandedSections, setExpandedSections] = useState<{
@@ -27,7 +29,7 @@ export function Documentacao() {
             {/* Logo */}
             <div className="flex justify-center mb-4">
               <img
-                src="/src/assets/LogoMeuCaixaA.png"
+                src={logoMeuCaixa}
                 alt="Meu Caixa Logo"
                 className="h-20 sm:h-24 object-contain animate-bounce hover:animate-none transition"
               />
@@ -510,7 +512,7 @@ export function Documentacao() {
             {/* Logo Meu Caixa */}
             <div className="flex justify-center">
               <img
-                src="/src/assets/LogoMeuCaixaA.png"
+                src={logoMeuCaixa}
                 alt="Meu Caixa"
                 className="h-12 object-contain opacity-80 hover:opacity-100 transition"
               />
@@ -533,7 +535,14 @@ export function Documentacao() {
                 <p className="text-slate-400 text-xs uppercase tracking-wider mb-2">
                   Criado e mantido por
                 </p>
-                <p className="text-secondary font-bold">NeoDevZone</p>
+                <div className="flex items-center justify-center gap-2">
+                  <img
+                    src={logoNeoDevZone}
+                    alt="NeoDevZone"
+                    className="h-6 object-contain opacity-80 hover:opacity-100 transition"
+                  />
+                  <span className="text-secondary font-bold">NeoDevZone</span>
+                </div>
               </div>
             </div>
           </div>

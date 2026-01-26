@@ -6,6 +6,8 @@ import {
   Rocket,
 } from "@phosphor-icons/react";
 import { useState } from "react";
+import logoMeuCaixa from "../assets/LogoMeuCaixaA.png";
+import logoNeoDevZone from "../assets/LogoNeoDevZone.png";
 
 export function DocumentacaoPublica() {
   const [expandedSections, setExpandedSections] = useState<{
@@ -33,7 +35,7 @@ export function DocumentacaoPublica() {
             {/* Logo */}
             <div className="flex justify-center mb-4">
               <img
-                src="/src/assets/LogoMeuCaixaA.png"
+                src={logoMeuCaixa}
                 alt="Meu Caixa Logo"
                 className="h-20 sm:h-24 object-contain animate-bounce hover:animate-none transition"
               />
@@ -729,7 +731,7 @@ export function DocumentacaoPublica() {
               {/* Logo Meu Caixa */}
               <div className="flex items-center gap-4">
                 <img
-                  src="/src/assets/LogoMeuCaixaA.png"
+                  src={logoMeuCaixa}
                   alt="Meu Caixa"
                   className="h-12 object-contain"
                 />
@@ -741,7 +743,7 @@ export function DocumentacaoPublica() {
               {/* Logo NeoDevZone */}
               <div className="flex items-center gap-4">
                 <img
-                  src="/src/assets/LogoNeoDevZone.png"
+                  src={logoNeoDevZone}
                   alt="NeoDevZone"
                   className="h-12 object-contain"
                 />
