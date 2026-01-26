@@ -43,7 +43,7 @@ export function DocumentacaoPublica() {
 
             {/* Badge */}
             <div className="inline-block">
-              <span className="px-4 py-2 text-xs uppercase tracking-[0.2em] font-semibold text-secondary bg-secondary/10 border border-secondary/30 rounded-full backdrop-blur">
+              <span className="px-3 sm:px-4 py-2 text-xs uppercase tracking-wide sm:tracking-[0.2em] font-semibold text-secondary bg-secondary/10 border border-secondary/30 rounded-full backdrop-blur whitespace-nowrap">
                 ✨ Controle Financeiro Inteligente
               </span>
             </div>
